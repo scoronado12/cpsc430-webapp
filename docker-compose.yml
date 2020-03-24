@@ -1,0 +1,20 @@
+version: '2'
+services:
+  web:
+    build: .
+    command: npm run dev
+    volumes:
+      - ./code:/opt/earthsci/code
+      - /opt/node_modules
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgres://science@postgres/earth_sci
+  postgres:
+    image: postgres:12.2
+    environment:
+      POSTGRES_USER: science
+      POSTGRES_DB: mypas1234
+

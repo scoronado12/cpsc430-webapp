@@ -5,6 +5,6 @@ WORKDIR /opt/earthsci
 COPY package.json .
 RUN npm install
 
-COPY ./code .
+COPY ./code ./code
 
 
