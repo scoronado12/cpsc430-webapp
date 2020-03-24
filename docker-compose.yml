@@ -16,5 +16,5 @@ services:
     image: postgres:12.2
     environment:
       POSTGRES_USER: science
-      POSTGRES_DB: mypas1234
+      POSTGRES_DB: earth_sci
 
