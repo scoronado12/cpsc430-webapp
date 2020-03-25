@@ -9,6 +9,7 @@ services:
     ports:
       - "3000:3000"
     depends_on:
+      - node
       - postgres
     environment:
       DATABASE_URL: postgres://science@postgres/earth_sci
