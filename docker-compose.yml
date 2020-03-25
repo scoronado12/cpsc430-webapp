@@ -4,8 +4,8 @@ services:
     build: .
     command: npm run dev
     volumes:
-      - ./webapp:/opt/earthsci/webapp
-      - /opt/earthsci/webapp/node_modules
+      - ./webapp:/opt/earthsci/src/app
+      - /opt/earthsci/src/app/node_modules
     ports:
       - "3000:3000"
     depends_on:
