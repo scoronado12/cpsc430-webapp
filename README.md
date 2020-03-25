@@ -8,7 +8,7 @@ Bring up the container as a development enviroment
 
 Command to spawn a bash shell in the running container
 
-     docker exec -it [docker id] bash
+    docker exec -it [docker id] bash
 
 
 Log into the database that is in the container (must be in container shell)
