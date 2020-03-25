@@ -18,4 +18,6 @@ services:
     environment:
       POSTGRES_USER: science
       POSTGRES_DB: earth_sci
+  node:
+    image: node:13.10.1-stretch
 
