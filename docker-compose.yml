@@ -2,7 +2,6 @@ version: '2'
 services:
   web:
     build: .
-    command: npm run
     volumes:
       - ./code:/opt/earthsci/code
       - /opt/node_modules
@@ -15,10 +14,11 @@ services:
       DATABASE_URL: postgres://science@postgres/earth_sci
   postgres:
     image: postgres:12.2
+    ports:
+      - "127.0.0.1:8080:5432"
     environment:
       POSTGRES_USER: science
       POSTGRES_DB: earth_sci
       POSTGRES_HOST_AUTH_METHOD: trust
   node:
     image: node:13.10.1-stretch
-
