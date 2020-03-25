@@ -3,7 +3,7 @@ services:
   web:
     build: .
     volumes:
-      - ./code:/opt/earthsci/code
+      - ./webapp:/opt/earthsci/webapp
       - /opt/node_modules
     ports:
       - "3000:3000"
