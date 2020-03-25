@@ -2,14 +2,25 @@
 
 **Do not forget that you should not commit in master!**
 
+# Where the Code lives
+
+You should only be able to edit anything under `webapp/`. If you need anymore `npm` packages, let Daniel or Stefano know.
+
+
 ## Depends
 
 - `docker`
 - `docker-compose`
 
+
+# Details
+
+- Postgresql username is `science`
+- There is no password while working here
+
 ## Useful Commands
 
-Bring up the container as a development enviroment - You will be able to modify files on the fly in this state
+Bring up the container as a development enviroment - You will be able to modify files on the fly in this state.
 
     docker-compose up
 
@@ -17,10 +28,10 @@ Command to spawn a bash shell in the running container
 
     docker exec -it [docker id] bash
 
+Command to access `postgresql` from your host (You will need `postgresql` installed)
 
-Log into the database that is in the container (must be in container shell)
+    psql -h 127.0.0.1 -U science -p 8080 -U science -d earth_sci
 
-    psql -h [docker id] -U [username] -d [database]
 
 ## TODOs
 
