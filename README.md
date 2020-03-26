@@ -28,10 +28,11 @@ Command to spawn a bash shell in the running container
 
     docker exec -it [docker id] bash
 
-Command to access `postgresql` from your host (You will need `postgresql` installed)
+Command to spawn mysql database shell
 
-    psql -h 127.0.0.1 -U science -p 8080 -U science -d earth_sci
+    mysql -h 0.0.0.0 -p 3306 -u root -D earth_sci -p
 
+The password is set inside `docker-compose.yml`
 
 ## TODOs
 

@@ -9,14 +9,13 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      - postgres
-    environment:
-      DATABASE_URL: postgres://science@postgres/earth_sci
-  postgres:
-    image: postgres:12.2
+      - mariadb
+  mariadb:
+    image: mariadb:10.5.1-bionic
     ports:
-      - "127.0.0.1:8080:5432"
+      - "0.0.0.0:3306:3306"
     environment:
-      POSTGRES_USER: science
-      POSTGRES_DB: earth_sci
-      POSTGRES_HOST_AUTH_METHOD: trust
+      MYSQL_ROOT_PASSWORD: 'mysql-root-pass'
+      MYSQL_USER: 'science'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_DATABASE: 'earth_sci'
