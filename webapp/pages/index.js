@@ -1,15 +1,30 @@
+//import Layout from '../components/Layout'
 
-const express = require('express')
-const app = express()
+class Page extends React.Component {
 
-var path = __dirname + '/pages'
+  render() {
+    return (
+      <Layout>
+  //      <div class="container">
+    //      <div class="starter text-center">
+            <h1>Bootstrap starter template</h1>
+            <p class="lead">Use this document as a way to quickly start any new project.<br/> All you get is this text and a mostly barebones HTML document.</p>
+//           </div>
+//         </div>
+      </Layout>
+    )
+  }
+}
+export default Page
 
-var router = express.Router()
 
-app.use('/', router)
+/*function HomePage() {
+  var 
+  return <div>Welcome to Next.js!</div>
+}
 
-router.get('/', function(req, res) {
-	res.sendFile(path+'index.html')
-})
+export default HomePage
 
-app.listen(3000)
+*/
+
+//app.listen(3000)
