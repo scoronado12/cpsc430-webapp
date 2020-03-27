@@ -1,4 +1,4 @@
-FROM node:13.10.1-stretch
+FROM node:latest
 
 RUN mkdir -p /opt/earthsci/src/app
 WORKDIR /opt/earthsci/src/app
@@ -10,4 +10,5 @@ COPY webapp/pages/ .
 
 RUN npm install
 
-RUN npm install --save react react-dom next mysqljs/mysql bootstrap express jquery popper.js
+RUN npm install --save react react-dom next mysqljs/mysql bootstrap express jquery popperjs/core
+
