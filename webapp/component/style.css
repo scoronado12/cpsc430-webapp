@@ -1,0 +1,120 @@
+        	* {
+            	box-sizing: border-box;
+            }
+            
+            body {
+            	background-color: rgb(32, 32, 32);
+                color: white;
+                font-family: sans-serif;
+                margin: 0px 0px 95px 0px;
+            }
+            
+            header, footer {
+            	background-color: rgb(51, 147, 51);
+                font-family: "Arial Black", Gadget, sans-serif;
+                padding: 10px;
+            }
+
+            header::after {
+                content: '';
+                display: table;
+                clear: both;
+            }
+            
+            footer {
+            	position: fixed;
+                width: 100%;
+            	bottom: 0px;
+                left: 0px;
+                text-align: center;
+            }
+            
+            h1, h2 {
+            	margin-top: 20px;
+            }
+            
+            p {
+            	word-break: break-all;
+            }
+
+            ul {
+                list-style-type: square;
+                /*border: 2px dashed white;*/
+
+            }
+            
+            nav {
+                float: right;
+                top: 0px;
+                left: 0px;
+                right: 0px;
+            }
+
+            nav ul {
+                margin: 0px;
+                padding: 0px;
+                list-style: none;
+            }
+
+            nav li {
+                display: inline-block;
+                margin-left: 70px;
+                padding-top: 0px;
+                position: relative;
+            }
+
+            nav a {
+                color: white;
+                text-decoration: none;
+                text-transform: uppercase;
+            }
+
+            nav a:hover {
+                color: rgb(20, 122, 20);
+            }
+
+            nav a:before {
+                content: '';
+                display: block;
+                height: 5px;
+                background-color: rgb(36, 36, 36);
+
+                position: absolute;
+                top: -10px;
+                width: 0%;
+
+                transition: all ease-in-out 250ms;
+            }
+
+            nav a:hover::before {
+                width: 100%;
+            }
+
+            table, th, td {
+                border: 1px solid white;
+                border-collapse: collapse;
+            }
+
+            th {
+                text-align: left;
+            }
+
+            .logo {
+                text-align: left;
+                margin: 5px;
+            }
+
+            .container {
+                width: 90%;
+                margin: 0px auto;
+            }
+
+            .content {
+            	margin: 5px 10px;
+                text-align: center;
+            }
+            .table-content {
+            	margin: 5px 10px;
+                text-align: center;
+            }
+
