@@ -10,5 +10,5 @@ COPY webapp/pages/ .
 
 RUN npm install
 
-RUN npm install --save react react-dom next mysqljs/mysql bootstrap express jquery popperjs/core
+RUN npm install --save react react-dom next mysqljs/mysql bootstrap express jquery @popperjs/core
 
