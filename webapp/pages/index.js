@@ -1,11 +1,16 @@
 
-function HomePage() {
-   
-  return <div>Welcome to Next.js!</div>
-}
+const express = require('express')
 
-export default HomePage
+const app = express()
 
+var path = __dirname + '/pages/html/'
 
+var router = express.Router()
 
-//app.listen(3000)
+app.use('/', router)
+
+router.get('/', function(req,res){
+    res.sendFile(path+'index.htm')
+
+})
+
