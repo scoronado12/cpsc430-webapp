@@ -1,10 +1,7 @@
-//import Header from './Header';
+import Header from './Header';
 
 const layoutStyle = {
-  margin: 0,
-  padding: 0,
-  border: '12px solid #03254c'
-
+ 	
 };
 
 const Layout = props => (

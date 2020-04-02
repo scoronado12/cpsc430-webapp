@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 const linkStyle = {
-  marginRight: 15,
+  marginBotton: "0px"
 
 };
 
