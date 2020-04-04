@@ -33,12 +33,14 @@ export default function Index() {
         <h1 className="title">UMW</h1>
         <h1 className="titletwo"> Earth Science Alumni Database </h1>
         <div className="floating-box"></div>
+        <div className="buttons">
         <form>
           <button className="enterButton" type="submit" formaction="/alumni">Enter Your Info!</button>
         </form>
         <form>
           <button className="adminButton" type="submit" formaction="/admin">Admin Login</button>
         </form>
+        </div>
         </main>
         
     
@@ -66,6 +68,8 @@ export default function Index() {
           background-size: cover;
           background-image: url("jepson.jpg");
           font-family: "Times New Roman";
+          overflow: auto;
+
         }
         .button {
           background-color: #03254c;
@@ -85,33 +89,44 @@ export default function Index() {
         }
         Navbar {
           background-color: grey;
+          color: #03254c;
+          font-weight: bold;
         }
         .floating-box {
           top: 25%;
           left: 36%;
           position: fixed;
-          width: 500px;
+          width: 26%;
           height: 400px;
           margin: 10px;
           border: 5px solid #03254c; 
           background-color: #CDCDCD; 
           opacity: 0.75;
           border-radius: 8px;
+            flex: 1 1 0%;
+
+        }
+        .buttons {
+         
         }
         .enterButton {
           opacity: 10;
           text-align: center;
           background-color: #03254c;
           color: white;
+          width: 15%;
           position: fixed;
           padding: 14px 40px;
           border-radius: 8px;
           font-size: 24px;
+          justify-content: center;
           top: 38%;
-          left: 43%;
+          left: 42.5%;
           box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+          flex: 1 1 0%;
         }
         .adminButton {
+          width: 15%;
           opacity: 10;
           text-align: center;
           background-color: #03254c;
@@ -121,9 +136,10 @@ export default function Index() {
           border-radius: 8px;
           font-size: 24px;
           top: 50%;
-          left: 43.75%;
+          left: 42.5%;
           box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
           transition-duration: 0.4s;
+          flex: 1 1 0%;
         }
         .adminButton:hover {
           background-color: #B53737;
@@ -133,7 +149,7 @@ export default function Index() {
           background-color: #B53737;
           color: white;
         }
-      `}
+    `}
       </style>
     </Layout>
   );
