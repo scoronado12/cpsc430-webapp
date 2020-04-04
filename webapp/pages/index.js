@@ -123,7 +123,11 @@ export default function Index() {
           top: 38%;
           left: 42.5%;
           box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+<<<<<<< HEAD
           flex: 1 1 0%;
+=======
+          transition-duration: 0.4s;
+>>>>>>> 566bd64517e95e96ca613c131e8324d10a6af6a7
         }
         .adminButton {
           width: 15%;
