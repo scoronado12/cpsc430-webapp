@@ -88,7 +88,7 @@ class Email extends React.Component{
                             <Form.Label>Message</Form.Label>
                             <Form.Control as="textarea" rows="3" placeholder="Message" value={this.state.message} onChange={this.handleUpdateMessageBox.bind(this)} />
                     </Form.Group>
-                    <Button variant="primary" type="submit" onClick={this.handle_email.bind(this)}>Send</Button>
+                    <Button onClick={this.handle_email.bind(this)}>Send</Button>
                 </Form>
 
 
