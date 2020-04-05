@@ -5,11 +5,11 @@ import { Button, Navbar, Nav, NavDropdown, Form, FormControl } from 'react-boots
 import { Jumbotron, Container, Row, Col } from 'react-bootstrap'
 
 
-//const sgMail = require('@sendgrid/mail');
 class Email extends React.Component{
 
     constructor(props){
         super(props);
+
         this.state = {
             subject: "",
             message: ""
@@ -29,19 +29,20 @@ class Email extends React.Component{
 
     async handle_email(evt){
 
+        var sgMail = require('@sendgrid/mail');
         var subject = this.state.subject;
         var message = this.state.message;
-        //      sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
         console.log("subject txt: " + subject);
         console.log("msg txt: " + message);
-        /*const msg = {
+        const msg = {
            to: 'scoronad@mail.umw.edu',
            from: 'no_reply@umw.edu',
            subject: subject,
            text: message,
         };
-        */
-        //sgmail.send(msg);
+        
+        sgMail.send(msg);
         console.log("Message Allegedly Sent!");
 
     }
@@ -208,4 +209,5 @@ class Email extends React.Component{
     }
 }
 
+const sgMail = require('@sendgrid/mail');
 export default Email;
