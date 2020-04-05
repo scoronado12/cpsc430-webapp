@@ -15,3 +15,5 @@ RUN npm install --save react react-dom next mysqljs/mysql react-bootstrap bootst
 RUN npm install --save isomorphic-fetch js-cookie
 
 RUN npm install --save react-bootstrap bootstrap
+
+RUN npm install --save @sendgrid/mail
