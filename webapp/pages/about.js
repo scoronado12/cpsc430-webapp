@@ -26,10 +26,16 @@ export default function About() {
         <div id="earthIMG"><img src="/earth.png" style={{maxWidth:"150px", maxHeight:"150px"}}/></div>
         <div id="UMWIMG"><img src="/umwEagle.png" style={{maxWidth:"100px", maxHeight:"100px"}}/></div>
         <h1 className="title"> About </h1>
+        <div className="boxed" bg="medium">
+         The University of Mary Washington Environmental Earth Science Alumni Database is a place for Environmental Earth Science Alum to keep in touch with the departments.
+          The database also acts as a place for alum to come and enter their information such as
+         their current occupation, name, email, and a little bit about themselves since their departure from the university.  This allows for the Environmental Earth Science Department
+         to keep track of their beloved past students and possibly reach out to you with information regarding the University and the department (with your permission of course).
+        </div> 
     </main>
     <style type="text/css" jsx> {`
 
-         .title {
+        .title {
           text-align: center;
           color: #03254c;
           font-size: 62px;
@@ -42,12 +48,7 @@ export default function About() {
           background-size: cover;
           background-image: url("jepson.jpg");
           font-family: "Times New Roman";
-        }
-        .button {
-          background-color: #03254c;
-          color: white;
-          padding: 14px 40px;
-          border-radius: 8px;
+          overflow: auto;
         }
         #earthIMG {
           position: absolute;
@@ -62,6 +63,12 @@ export default function About() {
         Navbar {
           background-color: grey;
         }
+        .boxed {
+          border: 1px solid #03254c;
+          background-color: rgba(211, 211, 211, 0.5);
+          text-align: center;
+          font-size: 32px;
+        } 
       `}
       </style>
     </Layout>
