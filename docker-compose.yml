@@ -19,4 +19,4 @@ services:
       MYSQL_USER: 'science'
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
       MYSQL_DATABASE: 'earth_sci'
-      SENDGRID_API_KEY: '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'
+      SENDGRID_API_KEY: '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'
