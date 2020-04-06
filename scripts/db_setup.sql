@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS alumnis (
 );
 
 /*
-Insert test values into alumni table if it is empty.
+Insert test values into alumni table.
 */
 INSERT INTO alumnis VALUES 
     ("test1@email.com", "aaa_first", "aaa_last", "major 1", 2000, "occupation 1", 1),
@@ -35,5 +35,4 @@ INSERT INTO alumnis VALUES
     ("test7@email.com", "ggg_first", "ggg_last", "major 2", 2000, "occupation 3", 0),
     ("test8@email.com", "hhh_first", "hhh_last", "major 3", 2001, "occupation 4", 1),
     ("test9@email.com", "iii_first", "iii_last", "major 2", 2004, "occupation 2", 1),
-    ("test10@email.com", "jjj_first", "jjj_last", "major 1", 2003, "occupation 4", 1) 
-    IF COUNT(alumnis) < 1;
+    ("test10@email.com", "jjj_first", "jjj_last", "major 1", 2003, "occupation 4", 1); 

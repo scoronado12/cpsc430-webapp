@@ -12,6 +12,8 @@ services:
       - mariadb
   mariadb:
     image: mariadb:10.5.1-bionic
+    volumes:
+      - ./scripts/db_setup.sql:/docker-entrypoint-initdb.d/db_setup.sql
     ports:
       - "0.0.0.0:3306:3306"
     environment:
