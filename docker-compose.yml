@@ -10,6 +10,8 @@ services:
       - "3000:3000"
     depends_on:
       - mariadb
+    env_file:
+      - ./sendgrid.env
   mariadb:
     image: mariadb:10.5.1-bionic
     ports:
@@ -19,4 +21,3 @@ services:
       MYSQL_USER: 'science'
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
       MYSQL_DATABASE: 'earth_sci'
-      SENDGRID_API_KEY: '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'
