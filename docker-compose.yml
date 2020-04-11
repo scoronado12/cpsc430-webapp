@@ -10,6 +10,8 @@ services:
       - "3000:3000"
     depends_on:
       - mariadb
+    env_file:
+      - ./sendgrid.env
   mariadb:
     image: mariadb:10.5.1-bionic
     volumes:
