@@ -9,7 +9,11 @@ const linkStyle = {
 
 // Testing server.
 function testCall() {
-   axios.get('http://localhost:3000/api/graduation_year=2000').then(function(response) {
+   axios.get('http://localhost:8000/api', {
+      params: {
+         graduation_year: "2000",
+      },
+   }).then((response) => {
       console.log(response.data);
    });
 }
@@ -22,7 +26,8 @@ export default function Index() {
             <link rel="stylesheet"
             href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
             integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-            crossOrigin="anonymous"/> 
+            crossOrigin="anonymous"/>
+            {testCall()}
         </div>
     
         

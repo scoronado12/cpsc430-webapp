@@ -1,20 +1,24 @@
 var express = require("express");
 var mysql = require("mysql");
 var app = express();
+var cors = require("cors");
 
 // Initialize DB connection.
 var pool = mysql.createPool({ 
     connectionLimit: 50,            // Number of concurrent connections to DB.
-    host: process.env.MYSQL_HOST_IP,              // To be changed.
+    host: process.env.MYSQL_HOST,   // To be changed.
     user: "root",                   // To be changed.
     password: "mysql-root-pass",    // Might want to hash.
     database: "earth_sci",
     debug: false
 });
 
+app.use(cors());
+
 app.get("/api", async (req, res) => {
     var field = (req.query !== "") ? "%" + req.query + "%" : "";
     var input;
+    console.log("Query received...");
 
     switch (field) {
         case "email":
@@ -56,6 +60,6 @@ app.get("/api", async (req, res) => {
     }
 });
 
-app.listen(3000, () => {
-    console.log("Running...");
+app.listen(8000, () => {
+    console.log("Running at: " + process.env.MYSQL_HOST);
 });

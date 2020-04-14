@@ -1,17 +1,30 @@
 version: '2'
 services:
   web:
-    build: .
+    build: ./webapp
     command: npm run dev
     volumes:
       - ./webapp:/opt/earthsci/src/app
       - /opt/earthsci/src/app/node_modules
     ports:
       - "3000:3000"
-    depends_on:
-      - mariadb
     env_file:
       - ./sendgrid.env
+  server:
+    build: ./server
+    command: npm run start
+    depends_on:
+      - mariadb
+    expose:
+      - 8000
+    environment:
+      MYSQL_HOST: mariadb
+    ports:
+      - 8000:8000
+    volumes:
+      - ./server:/server
+    links:
+      - mariadb
   mariadb:
     image: mariadb:10.5.1-bionic
     volumes:
