@@ -9,7 +9,7 @@ const linkStyle = {
 
 // Testing server.
 function testCall() {
-   axios.get('http://localhost:8000/api', {
+   axios.get('http://127.0.0.1:8000/api', {
       params: {
          graduation_year: "2000",
       },

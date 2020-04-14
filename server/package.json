@@ -11,7 +11,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "nodemon AlumniQuery.js"
+    "start": "nodemon --legacy-watch AlumniQuery.js"
   },
   "author": "Daniel",
   "license": "ISC"
