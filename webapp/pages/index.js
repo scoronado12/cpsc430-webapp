@@ -1,4 +1,4 @@
-
+import axios from 'axios'; // Testing server.
 import Link from 'next/link'
 import Layout from '../components/MyLayout'
 import { Button, Navbar, Nav, NavDropdown, Form, FormControl } from 'react-bootstrap'
@@ -6,6 +6,14 @@ import { Jumbotron, Container, Row, Col } from 'react-bootstrap'
 const linkStyle = {
   
 };
+
+// Testing server.
+function testCall() {
+   axios.get('http://localhost:3000/api/graduation_year=2000').then(function(response) {
+      console.log(response.data);
+   });
+}
+
 export default function Index() {
   return (
      <Layout>
@@ -14,7 +22,7 @@ export default function Index() {
             <link rel="stylesheet"
             href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
             integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-            crossorigin="anonymous"/> 
+            crossOrigin="anonymous"/> 
         </div>
     
         
@@ -35,10 +43,10 @@ export default function Index() {
         <div className="floating-box"></div>
         <div className="buttons">
         <form>
-          <button className="enterButton" type="submit" formaction="/alumni">Enter Your Info!</button>
+          <button className="enterButton" type="submit" formAction="/alumni">Enter Your Info!</button>
         </form>
         <form>
-          <button className="adminButton" type="submit" formaction="/admin">Admin Login</button>
+          <button className="adminButton" type="submit" formAction="/admin">Admin Login</button>
         </form>
         </div>
         </main>

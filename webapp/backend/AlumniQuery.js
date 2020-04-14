@@ -5,14 +5,14 @@ var app = express();
 // Initialize DB connection.
 var pool = mysql.createPool({ 
     connectionLimit: 50,            // Number of concurrent connections to DB.
-    host: "localhost",              // To be changed.
+    host: process.env.MYSQL_HOST_IP,              // To be changed.
     user: "root",                   // To be changed.
     password: "mysql-root-pass",    // Might want to hash.
     database: "earth_sci",
     debug: false
 });
 
-app.get("/", async (req, res) => {
+app.get("/api", async (req, res) => {
     var field = (req.query !== "") ? "%" + req.query + "%" : "";
     var input;
 
@@ -56,6 +56,6 @@ app.get("/", async (req, res) => {
     }
 });
 
-app.listen(app.get("port"), () => {
+app.listen(3000, () => {
     console.log("Running...");
 });
