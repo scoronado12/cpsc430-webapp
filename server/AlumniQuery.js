@@ -15,58 +15,22 @@ var pool = mysql.createPool({
 
 app.use(cors());
 
-app.get("/api", async (req, res) => {
-    //var field = (req.query !== "") ?req.query + "%" : "";
-    var field = "graduation_year";
-    var input;
+app.get("/api", (req, res) => {
     console.log("Query received...");
-    console.log(req.query);
-    console.log(req.query.graduation_year);
+    const { graduation_year } = req.query;
+    console.log(graduation_year);
 
-    switch (field) {
-        case "email":
-            input = (req.query.email !== "") ? req.query.email : "";
-            break;
-        case "first_name":
-            input = (req.query.first_name !== "") ? req.query.first_name : "";
-            break;
-        case "last_name":
-            input = (req.query.last_name !== "") ? req.query.last_name : "";
-            break;
-        case "major":
-            input = (req.query.major !== "") ? req.query.major : "";
-            break;
-        case "graduation_year":
-            console.log("In graduation_year case...");
-            input = (req.query.graduation_year !== "") ? req.query.graduation_year : "";
-            break;
-        case "occupation":
-            input = (req.query.occupation !== "") ? req.query.occupation : "";
-            break;
-        case "newletter_opt_in":
-            input = (req.query.newletter_opt_in !== "") ? req.query.newletter_opt_in : "";
-            break;
-        default:
-            console.log("Not in any case, query not going to run...");
-            return; // Breaking out, invalid inputs.
-    }
-
-    try {
-        var result = await pool.query("SELECT * FROM alumnis WHERE $1 = $2", [field, input]);
-
-        //res.setHeader("Access-Control-Allow-Origin", "*");
-        //res.setHeader("Access-Control-Allow-Methods", "GET");
-        //res.setHeader("Access-Control-Allow-Headers", "X-Requested-With,contenttype");
-        //res.setHeader("Access-Control-Allow-Credentials", true);
-
-        //res.json(result.rows);
-        console.log("Sending result...");
-        res.send(result);
-    } catch (error) {
-        console.log("Error running request: ", error);
-    }
+    pool.query('SELECT * FROM alumnis WHERE graduation_year = ?', [graduation_year], (err, result) => {
+      if (err) {
+         console.log(err);
+         return res.send(err);
+      } else {
+         console.log(result);
+         return res.send(result);
+      }
+    });
 });
 
 app.listen(8000, () => {
-    console.log("Running at: " + process.env.MYSQL_HOST);
+    console.log("Running...");
 });
