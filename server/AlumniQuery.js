@@ -15,7 +15,7 @@ var pool = mysql.createPool({
 
 app.use(cors());
 
-app.get("/api", (req, res) => {
+app.get("/graduation_year", (req, res) => {
     console.log("Query received...");
     const { graduation_year } = req.query;
     console.log(graduation_year);
