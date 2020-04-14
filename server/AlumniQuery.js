@@ -61,7 +61,6 @@ app.get("/api", async (req, res) => {
 
         //res.json(result.rows);
         console.log("Sending result...");
-        console.log(result);
         res.send(result);
     } catch (error) {
         console.log("Error running request: ", error);

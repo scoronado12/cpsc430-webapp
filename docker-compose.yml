@@ -13,6 +13,8 @@ services:
   server:
     build: ./server
     command: npm run start
+    volumes:
+      - ./server:/app
     depends_on:
       - mariadb
     expose:
@@ -21,8 +23,6 @@ services:
       MYSQL_HOST: mariadb
     ports:
       - 8000:8000
-    volumes:
-      - ./server:/server
     links:
       - mariadb
   mariadb:
