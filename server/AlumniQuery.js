@@ -15,12 +15,94 @@ var pool = mysql.createPool({
 
 app.use(cors());
 
-app.get("/graduation_year", (req, res) => {
-    console.log("Query received...");
-    const { graduation_year } = req.query;
-    console.log(graduation_year);
+app.get("/email", (req, res) => {
+    const { field } = req.query;
 
-    pool.query('SELECT * FROM alumnis WHERE graduation_year = ?', [graduation_year], (err, result) => {
+    pool.query('SELECT * FROM alumnis WHERE email = ?', [field], (err, result) => {
+      if (err) {
+         console.log(err);
+         return res.send(err);
+      } else {
+         console.log(result);
+         return res.send(result);
+      }
+    });
+});
+
+app.get("/first_name", (req, res) => {
+    const { field } = req.query;
+
+    pool.query('SELECT * FROM alumnis WHERE first_name = ?', [field], (err, result) => {
+      if (err) {
+         console.log(err);
+         return res.send(err);
+      } else {
+         console.log(result);
+         return res.send(result);
+      }
+    });
+});
+
+app.get("/last_name", (req, res) => {
+    const { field } = req.query;
+
+    pool.query('SELECT * FROM alumnis WHERE last_name = ?', [field], (err, result) => {
+      if (err) {
+         console.log(err);
+         return res.send(err);
+      } else {
+         console.log(result);
+         return res.send(result);
+      }
+    });
+});
+
+app.get("/major", (req, res) => {
+    const { field } = req.query;
+
+    pool.query('SELECT * FROM alumnis WHERE major = ?', [field], (err, result) => {
+      if (err) {
+         console.log(err);
+         return res.send(err);
+      } else {
+         console.log(result);
+         return res.send(result);
+      }
+    });
+});
+
+app.get("/graduation_year", (req, res) => {
+    const { field } = req.query;
+
+    pool.query('SELECT * FROM alumnis WHERE graduation_year = ?', [field], (err, result) => {
+      if (err) {
+         console.log(err);
+         return res.send(err);
+      } else {
+         console.log(result);
+         return res.send(result);
+      }
+    });
+});
+
+app.get("/occupation", (req, res) => {
+    const { field } = req.query;
+
+    pool.query('SELECT * FROM alumnis WHERE occupation = ?', [field], (err, result) => {
+      if (err) {
+         console.log(err);
+         return res.send(err);
+      } else {
+         console.log(result);
+         return res.send(result);
+      }
+    });
+});
+
+app.get("/newsletter", (req, res) => {
+    const { field } = req.query;
+
+    pool.query('SELECT * FROM alumnis WHERE newletter_opt_in = ?', [field], (err, result) => {
       if (err) {
          console.log(err);
          return res.send(err);

@@ -9,13 +9,13 @@ const linkStyle = {
 
 // Testing server.
 function testCall() {
-   axios.get('http://127.0.0.1:8000/graduation_year', {
-      params: {
-         graduation_year: "2000",
-      },
-   }).then((response) => {
-      console.log(response.data);
-   });
+    axios.get('http://127.0.0.1:8000/graduation_year', {
+        params: {
+            field: "2000",
+        },
+    }).then((response) => {
+        console.log(response.data);
+    });
 }
 
 export default function Index() {
