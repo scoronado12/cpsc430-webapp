@@ -30,7 +30,7 @@ Command to spawn a bash shell in the running container
 
 Command to spawn mysql database shell
 
-    mysql -h 0.0.0.0 -p 3306 -u root -D earth_sci -p
+    mysql -h 0.0.0.0 -P 3306 -u root -D earth_sci -p
 
 The password is set inside `docker-compose.yml`
 
