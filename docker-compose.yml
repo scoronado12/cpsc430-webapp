@@ -15,6 +15,7 @@ services:
     command: npm run start
     volumes:
       - ./server:/app
+      - /app/node_modules
     depends_on:
       - mariadb
     expose:
