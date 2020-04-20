@@ -7,4 +7,6 @@ COPY package.json /app
 COPY package-lock.json /app
 COPY . /app
 
-RUN npm install --save cors express mysql nodemon
+RUN npm install --save cors express mysql
+
+RUN npm install --save  nodemon -g
