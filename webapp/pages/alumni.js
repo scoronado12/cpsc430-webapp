@@ -7,20 +7,63 @@ import { Jumbotron, Container, Row, Col } from 'react-bootstrap'
 class Alumni extends React.Component {
     
     constructor(props){
+        
         super(props);
         this.state = {
-            formGridFirstName: "",
-            formGridLastName: "",
-                
-            
-        }
+            fname: "",
+            lname: "",
+            email_addr: "",
+            occupation: "",
+            degree: "",
+            grad_yr: "",
+            bio: "",
+            newsletter_optin: ""
+        };
     }
     
-    handleChange(event){
-            this.setState{
+    handleUpdatefname(evt){
+        this.setState({fname: evt.target.value});
+    }
+    
+    
+    handleUpdatelname(evt){
+            this.setState({ lname: evt.target.value});
+    }
+    
+        
+    handleUpdateemail(evt){
+            this.setState({ email_addr: evt.target.value});
+    }
+           
+    handleUpdateOccupation(evt){
+            this.setState({ occupation: evt.target.value});
+    }
+    handleUpdateGradyear(evt){
+            this.setState({ grad_yr: evt.target.value});
+    }
+    
+    handleUpdateDegree(evt){
+            this.setState({degree: evt.target.value})
+    }
+    
+    handleUpdateBio(evt){
+        this.setState({bio: evt.target.value});
+    }
+    
+    handle_newsletter_optin(evt){
+        this.setState({newsletter_optin: evt.target.value});
     }
 
-    submission() {
+    handle_submission(evt) {
+        evt.preventDefault();
+        
+        console.log("Name: " + this.state.fname);
+        console.log("Lname: " + this.state.lname);
+        console.log("email: " + this.state.email);
+        console.log("grad_yr: " + this.state.grad_yr);
+        console.log("bio: " + this.state.bio);
+        console.log("newsletter? " + this.state.newsleter_optin); 
+        /*
         axios.post('http://127.0.0.1:8000/alumni_insert', {
             
             first_name: "Tester",
@@ -30,11 +73,11 @@ class Alumni extends React.Component {
             degree_obtained: "Computer Science",
             grad_year: "2020",
             bio: "Hello world from the hardcoded api call",
-            newsletter_optin: "1"
+            newsletter_optin: "1",
             
         }).then((response) => {
             console.log(response.data);
-        }); /*unhandled response rejection warning error may occur*/
+        }); /*unhandled response rejection warning error may occur*/ 
     }
 
 
@@ -50,7 +93,7 @@ class Alumni extends React.Component {
                 href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
                 integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
                 crossorigin="anonymous"/> 
-                {submission()}
+                
             </div>
                 <Navbar bg="medium" expand="lg">
                 <Navbar.Brand href="#home">EESAD</Navbar.Brand>
@@ -66,52 +109,51 @@ class Alumni extends React.Component {
             <div id="UMWIMG"><img src="/umwEagle.png" style={{maxWidth:"100px", maxHeight:"100px"}}/></div>
             <h1 className="title"> Enter Your Information Below! </h1>
             <div className="boxed" bg="medium">
-                <Form>
+                <form onSubmit={this.handle_submission}>
                     <Form.Row>
                         <Form.Group as={Col} controlId="first_name_line">
                         <Form.Label>First Name</Form.Label>
-                        <Form.Control type="text" placeholder="First Name" />
+                        <Form.Control type="text" placeholder="First Name" value={this.state.fname} onChange={this.handleUpdatefname.bind(this)} />
                         </Form.Group>
 
                         <Form.Group as={Col} controlId="last_name_line">
                         <Form.Label>Last Name</Form.Label>
-                        <Form.Control type="text" placeholder="Last Name" />
+                        <Form.Control type="text" placeholder="Last Name" value={this.state.lname} onChange={this.handleUpdatelname.bind(this)}/>
                         </Form.Group>
                     </Form.Row>
                     <Form.Row>
                         <Form.Group as={Col} controlId="email_line">
                         <Form.Label>Email</Form.Label>
-                        <Form.Control type="email" placeholder="Email" />
+                        <Form.Control type="email" placeholder="Email" value={this.state.email_addr} onChange={this.handleUpdateemail.bind(this)}/>
                         </Form.Group>
 
                         <Form.Group as={Col} controlId="occupation_line">
                         <Form.Label>Occupation</Form.Label>
-                        <Form.Control type="text" placeholder="Occupation" />
+                        <Form.Control type="text" placeholder="Occupation" onChange={this.handleUpdateOccupation.bind(this)} value={this.state.occupation} />
                         </Form.Group>
                     </Form.Row>
                     <Form.Row>
-                        <Form.Group as={Col} controlId="degree">
+                        <Form.Group as={Col} controlId="degree_line">
                         <Form.Label>Degree Obtained</Form.Label>
-                        <Form.Control type="text" placeholder="Degree" />
+                        <Form.Control type="text" placeholder="Degree" value={this.state.degree} onChange={this.handleUpdateDegree.bind(this)}/>
                         </Form.Group>
 
-                        <Form.Group as={Col} controlId="year">
+                        <Form.Group as={Col} controlId="year_line">
                         <Form.Label>Graduation Year</Form.Label>
-                        <Form.Control type="text" placeholder="Year" />
+                        <Form.Control type="text" placeholder="Year" value={this.state.grad_yr} onChange={this.handleUpdateGradyear.bind(this)}/>
                         </Form.Group>
                     </Form.Row>
-                    <Form.Group controlId="exampleForm.ControlTextarea1">
+                    <Form.Group controlId="bio_line">
                         <Form.Label>Bio </Form.Label>
-                        <Form.Control as="textarea" rows="3" placeholder="Bio" />
+                        <Form.Control as="textarea" rows="3" placeholder="Bio" value={this.state.bio} onChange={this.handleUpdateBio.bind(this)}/>
                     </Form.Group>
-                    <Form.Group id="formGridCheckbox">
-                        <Form.Check className="czekbox" type="checkbox" label="Opt into department Newsletter" />
+                    <Form.Group id="checkbox">
+                        <Form.Check className="czekbox" type="checkbox" label="Opt into department Newsletter" value={this.state.newsleter_optin} onChange={this.handle_newsletter_optin.bind(this)}/>
                     </Form.Group>
 
                     <Button variant="primary" type="submit">
-                        Submit
-                    </Button>
-                    </Form>
+                        Submit </Button>
+                    </form>
             </div> 
         </main>
         <style type="text/css" jsx> {`
@@ -169,3 +211,5 @@ class Alumni extends React.Component {
     );
     }
 }
+
+export default Alumni;
