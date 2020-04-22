@@ -7,16 +7,16 @@ import { Jumbotron, Container, Row, Col } from 'react-bootstrap'
 
 function submission() {
     axios.post('http://127.0.0.1:8000/alumni_insert', {
-        params: {
-            first_name: "Tester",
-            last_name: "McTesterson",
-            email: "hardcode@stefanocoronado.com",
-            occupation: "student",
-            degree_obtained: "Computer Science",
-            grad_year: "2020",
-            bio: "Hello world from the hardcoded api call",
-            newsletter_optin: "1"
-        },
+        
+        first_name: "Tester",
+        last_name: "McTesterson",
+        email: "hardcode@stefanocoronado.com",
+        occupation: "student",
+        degree_obtained: "Computer Science",
+        grad_year: "2020",
+        bio: "Hello world from the hardcoded api call",
+        newsletter_optin: "1"
+        
     }).then((response) => {
         console.log(response.data);
     });

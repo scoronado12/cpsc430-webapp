@@ -118,16 +118,16 @@ app.get("/newsletter", (req, res) => {
 
 
 app.post("/alumni_insert", (req, res) => {
-    const { first_name } = req.query;
-    const { last_name } = req.query;
-    const { email } = req.query;
-    const { occupation } = req.query;
-    const { degree_obtained } = req.query;
-    const { grad_year } = req.query;
-    const { bio } = req.query;
-    const { newsletter_optin } = req.query;
+    const first_name  = req.body.first_name;
+    const last_name = req.body.last_name;
+    const email = req.body.email;
+    const occupation = req.body.first_name;
+    const degree_obtained = req.body.degree_obtained;
+    const grad_year  = req.body.grad_year;
+    const bio = req.body.bio;
+    const newsletter_optin = req.body.newsletter_optin;
     
-    console.log("QUERY" + req.body);
+    console.log("QUERY" + req.body.first_name);
     
     /*degree_obtained is the same as major value within db table*/
     pool.query('INSERT INTO alumnis VALUES (?,?,?,?,?,?,?,?)', [email, first_name, last_name, degree_obtained, grad_year, occupation, newsletter_optin, bio], (err, result) => {
