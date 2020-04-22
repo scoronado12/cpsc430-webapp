@@ -1,7 +1,30 @@
+import axios from 'axios';
 import Layout from '../components/MyLayout'
 import Link from 'next/link'
 import { Button, Navbar, Nav, NavDropdown, Form, FormControl } from 'react-bootstrap'
 import { Jumbotron, Container, Row, Col } from 'react-bootstrap'
+
+
+function submission() {
+    axios.post('http://127.0.0.1:8000/alumni_insert', {
+        params: {
+            first_name: "Tester",
+            last_name: "McTesterson",
+            email: "hardcode@stefanocoronado.com",
+            occupation: "student",
+            degree_obtained: "Computer Science",
+            grad_year: "2020",
+            bio: "Hello world from the hardcoded api call",
+            newsletter_optin: "1"
+        },
+    }).then((response) => {
+        console.log(response.data);
+    });
+}
+
+
+
+
 
 export default function Alumni() {
   return (
@@ -12,6 +35,7 @@ export default function Alumni() {
             href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
             integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
             crossorigin="anonymous"/> 
+            {submission()}
         </div>
        		<Navbar bg="medium" expand="lg">
           	<Navbar.Brand href="#home">EESAD</Navbar.Brand>

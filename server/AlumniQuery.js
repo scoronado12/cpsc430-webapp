@@ -2,6 +2,7 @@ var express = require("express");
 var mysql = require("mysql");
 var app = express();
 var cors = require("cors");
+var bodyparser = require("body-parser");
 
 // Initialize DB connection.
 var pool = mysql.createPool({ 
@@ -14,6 +15,8 @@ var pool = mysql.createPool({
 });
 
 app.use(cors());
+app.use(bodyparser.urlencoded({ extended: true}));
+app.use(bodyparser.json());
 
 app.get("/email", (req, res) => {
     const { field } = req.query;
@@ -103,6 +106,31 @@ app.get("/newsletter", (req, res) => {
     const { field } = req.query;
 
     pool.query('SELECT * FROM alumnis WHERE newletter_opt_in = ?', [field], (err, result) => {
+      if (err) {
+         console.log(err);
+         return res.send(err);
+      } else {
+         console.log(result);
+         return res.send(result);
+      }
+    });
+});
+
+
+app.post("/alumni_insert", (req, res) => {
+    const { first_name } = req.query;
+    const { last_name } = req.query;
+    const { email } = req.query;
+    const { occupation } = req.query;
+    const { degree_obtained } = req.query;
+    const { grad_year } = req.query;
+    const { bio } = req.query;
+    const { newsletter_optin } = req.query;
+    
+    console.log("QUERY" + req.body);
+    
+    /*degree_obtained is the same as major value within db table*/
+    pool.query('INSERT INTO alumnis VALUES (?,?,?,?,?,?,?,?)', [email, first_name, last_name, degree_obtained, grad_year, occupation, newsletter_optin, bio], (err, result) => {
       if (err) {
          console.log(err);
          return res.send(err);
