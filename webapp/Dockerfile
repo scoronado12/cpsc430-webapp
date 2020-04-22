@@ -3,17 +3,15 @@ FROM node:latest
 RUN mkdir -p /opt/earthsci/src/app
 WORKDIR /opt/earthsci/src/app
 
-COPY webapp/package.json .
-COPY webapp/package-lock.json .
+COPY package.json /opt/earthsci/src/app
+COPY package-lock.json /opt/earthsci/src/app
 
-COPY webapp/pages/ .
+COPY . /opt/earthsci/src/app
 
 RUN npm install
 
 RUN npm install --save react react-dom next mysqljs/mysql react-bootstrap bootstrap express jquery @popperjs/core
 
-RUN npm install --save isomorphic-fetch js-cookie
-
-RUN npm install --save react-bootstrap bootstrap
+RUN npm install --save isomorphic-fetch js-cookie axios
 
 RUN npm install --save @sendgrid/mail
