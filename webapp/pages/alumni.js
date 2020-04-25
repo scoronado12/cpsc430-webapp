@@ -14,8 +14,14 @@ export default () => {
   })
 
   const [inputs, setInputs] = useState({
-    subject: '',
-    message: ''
+    fname: '',
+    lname: '',
+    occupation: '',
+    grad_yr: '',
+    email: '',
+    degree: '',
+    bio: ''
+
   })
 
   const handleResponse = (status, msg) => {
@@ -26,8 +32,13 @@ export default () => {
         info: { error: false, msg: msg }
       })
       setInputs({
-        subject: '',
-        message: ''
+        fname: '',
+        lname: '',
+        occupation: '',
+        grad_yr: '',
+        email: '',
+        degree: '',
+        bio: ''
       })
     } else {
       setStatus({
@@ -52,7 +63,7 @@ export default () => {
   const handleOnSubmit = async e => {
     e.preventDefault()
     setStatus(prevStatus => ({ ...prevStatus, submitting: true }))
-    const res = await fetch('/api/sendgrid-server', {
+    const res = await fetch('/api/query-db', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -102,7 +113,7 @@ export default () => {
               required
               value={inputs.fname}
              />
-
+            <p></p>
             <label htmlFor="lname">Last Name</label>
             <input
               id="lname"
@@ -117,6 +128,8 @@ export default () => {
               required
               value={inputs.occupation}
             />
+            <p></p>
+
             <label htmlFor="gradyr">Graduation Year</label>
             <input
               id="gradyr"
@@ -124,6 +137,8 @@ export default () => {
               required
               value={inputs.grad_yr}
             />
+            <p></p>
+
             <label htmlFor="email">Email</label>
             <input
               id="email"
@@ -131,20 +146,17 @@ export default () => {
               required
               value={inputs.email}
             />
-            <label htmlFor="message">Message</label>
-            <input
-              id="message"
-              onChange={handleOnChange}
-              required
-              value={inputs.message}
-            />
-            <label htmlFor="degree">Degree Obtained</label>
+            <p></p>
+
+           <label htmlFor="degree">Degree Obtained</label>
             <input
               id="degree"
               onChange={handleOnChange}
               required
               value={inputs.degree}
             />
+            <p></p>
+
             <label htmlFor="bio">Bio</label>
             <textarea
               id="bio"
@@ -161,10 +173,10 @@ export default () => {
             </button>
         </form>
           {status.info.error && (
-            <div className="error">Error: {status.info.msg}</div>
+            <div className="Error Occured - Please Try Again">Error: {status.info.msg}</div>
           )}
           {!status.info.error && status.info.msg && (
-            <div className="success">{status.info.msg}</div>
+            <div className="Successfully Submitted">{status.info.msg}</div>
           )}
 
         </div>
