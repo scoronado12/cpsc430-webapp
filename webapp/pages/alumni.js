@@ -27,23 +27,23 @@ class Alumni extends React.Component {
     
     
     handleUpdatelname(evt){
-            this.setState({ lname: evt.target.value});
+        this.setState({lname: evt.target.value});
     }
     
         
     handleUpdateemail(evt){
-            this.setState({ email_addr: evt.target.value});
+        this.setState({email_addr: evt.target.value});
     }
            
     handleUpdateOccupation(evt){
-            this.setState({ occupation: evt.target.value});
+        this.setState({occupation: evt.target.value});
     }
     handleUpdateGradyear(evt){
-            this.setState({ grad_yr: evt.target.value});
+        this.setState({grad_yr: evt.target.value});
     }
     
     handleUpdateDegree(evt){
-            this.setState({degree: evt.target.value})
+        this.setState({degree: evt.target.value})
     }
     
     handleUpdateBio(evt){
@@ -54,15 +54,15 @@ class Alumni extends React.Component {
         this.setState({newsletter_optin: evt.target.value});
     }
 
-    handle_submission(evt) {
+    async handle_submission(evt) {
         evt.preventDefault();
         
-        console.log("Name: " + this.state.fname);
-        console.log("Lname: " + this.state.lname);
-        console.log("email: " + this.state.email);
-        console.log("grad_yr: " + this.state.grad_yr);
-        console.log("bio: " + this.state.bio);
-        console.log("newsletter? " + this.state.newsleter_optin); 
+        console.log("Name: " + fname);
+        console.log("Lname: " + lname);
+        console.log("email: " + email);
+        console.log("grad_yr: " + grad_yr);
+        console.log("bio: " + bio);
+        console.log("newsletter? " + newsleter_optin); 
         /*
         axios.post('http://127.0.0.1:8000/alumni_insert', {
             
@@ -113,39 +113,39 @@ class Alumni extends React.Component {
                     <Form.Row>
                         <Form.Group as={Col} controlId="first_name_line">
                         <Form.Label>First Name</Form.Label>
-                        <Form.Control type="text" placeholder="First Name" value={this.state.fname} onChange={this.handleUpdatefname.bind(this)} />
+                        <input type='text' value={this.state.fname} onChange={this.handleUpdatefname.bind(this)}/>
                         </Form.Group>
 
                         <Form.Group as={Col} controlId="last_name_line">
                         <Form.Label>Last Name</Form.Label>
-                        <Form.Control type="text" placeholder="Last Name" value={this.state.lname} onChange={this.handleUpdatelname.bind(this)}/>
+                        <input type='text' value={this.state.lname} onChange={this.handleUpdatelname.bind(this)}/>
                         </Form.Group>
                     </Form.Row>
                     <Form.Row>
                         <Form.Group as={Col} controlId="email_line">
                         <Form.Label>Email</Form.Label>
-                        <Form.Control type="email" placeholder="Email" value={this.state.email_addr} onChange={this.handleUpdateemail.bind(this)}/>
+                        <input type='text' value={this.state.email} onChange={this.handleUpdateemail.bind(this)}/>
                         </Form.Group>
 
                         <Form.Group as={Col} controlId="occupation_line">
                         <Form.Label>Occupation</Form.Label>
-                        <Form.Control type="text" placeholder="Occupation" onChange={this.handleUpdateOccupation.bind(this)} value={this.state.occupation} />
+                        <input type='text' value={this.state.occupation} onChange={this.handleUpdateOccupation.bind(this)}/>
                         </Form.Group>
                     </Form.Row>
                     <Form.Row>
                         <Form.Group as={Col} controlId="degree_line">
                         <Form.Label>Degree Obtained</Form.Label>
-                        <Form.Control type="text" placeholder="Degree" value={this.state.degree} onChange={this.handleUpdateDegree.bind(this)}/>
+                        <input type='text' value={this.state.degree} onChange={this.handleUpdateDegree.bind(this)}/>
                         </Form.Group>
 
                         <Form.Group as={Col} controlId="year_line">
                         <Form.Label>Graduation Year</Form.Label>
-                        <Form.Control type="text" placeholder="Year" value={this.state.grad_yr} onChange={this.handleUpdateGradyear.bind(this)}/>
+                        <input type='text' value={this.state.grad_yr} onChange={this.handleUpdateGradyear.bind(this)}/>
                         </Form.Group>
                     </Form.Row>
                     <Form.Group controlId="bio_line">
                         <Form.Label>Bio </Form.Label>
-                        <Form.Control as="textarea" rows="3" placeholder="Bio" value={this.state.bio} onChange={this.handleUpdateBio.bind(this)}/>
+                        <input type='text' value={this.state.bio} onChange={this.handleUpdateBio.bind(this)}/>
                     </Form.Group>
                     <Form.Group id="checkbox">
                         <Form.Check className="czekbox" type="checkbox" label="Opt into department Newsletter" value={this.state.newsleter_optin} onChange={this.handle_newsletter_optin.bind(this)}/>
