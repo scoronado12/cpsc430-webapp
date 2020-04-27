@@ -103,7 +103,7 @@ export default () => {
         <h1 className="title">UMW</h1>
         <h1 className="titletwo"> Earth Science Alumni Database </h1>
         <div className="floating-box">
-            <h2>Send an email to all registered users</h2>
+            <h2>Join Our Database!</h2>
 
         <form onSubmit={handleOnSubmit}>
             <label htmlFor="fname">Frist Name</label>
