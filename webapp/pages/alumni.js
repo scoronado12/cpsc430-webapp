@@ -38,7 +38,8 @@ export default () => {
         grad_yr: '',
         email: '',
         degree: '',
-        bio: ''
+        bio: '',
+        newsletter_optin: '1' /*TODO set to a default*/
       })
     } else {
       setStatus({
@@ -130,9 +131,9 @@ export default () => {
             />
             <p></p>
 
-            <label htmlFor="gradyr">Graduation Year</label>
+            <label htmlFor="grad_yr">Graduation Year</label>
             <input
-              id="gradyr"
+              id="grad_yr"
               onChange={handleOnChange}
               required
               value={inputs.grad_yr}
