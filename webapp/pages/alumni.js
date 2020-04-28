@@ -69,7 +69,7 @@ export default () => {
         email: inputs.email,
         first_name: inputs.fname,
         last_name: inputs.lname,
-        occupation: inputs.occuptaion,
+        occupation: inputs.occupation,
         degree_obtained: inputs.degree_obtained,
         grad_year: inputs.grad_yr,
         bio: inputs.bio,
