@@ -1,9 +1,82 @@
-import Layout from '../components/MyLayout'
-import Link from 'next/link'
-import { Button, Navbar, Nav, NavDropdown, Form, FormControl } from 'react-bootstrap'
-import { Jumbotron, Container, Row, Col } from 'react-bootstrap'
+import React, {useState} from "react";
+import Layout from '../components/MyLayout';
+import Link from 'next/link';
+import { Button, Navbar, Nav, NavDropdown, Form, FormControl } from 'react-bootstrap';
+import { Jumbotron, Container, Row, Col } from 'react-bootstrap';
+import axios from 'axios';
 
-export default function Admin() {
+export default () => {
+  const [status, setStatus] = useState({
+    submitted: false,
+    submitting: false,
+    info: { error: false, msg: null }
+  })
+
+  const [inputs, setInputs] = useState({
+      email: '',
+      password: ''
+  })
+
+  const handleResponse = (status, msg) => {
+    if (status === 200) {
+      setStatus({
+        submitted: true,
+        submitting: false,
+        info: { error: false, msg: msg }
+      })
+      setInputs({
+        email: '',
+        password: ''
+      })
+    } else {
+      setStatus({
+        info: { error: true, msg: msg }
+      })
+    }
+  }
+
+  const handleOnChange = e => {
+    e.persist()
+    setInputs(prev => ({
+      ...prev,
+      [e.target.id]: e.target.value
+    }))
+    setStatus({
+      submitted: false,
+      submitting: false,
+      info: { error: false, msg: null }
+    })
+  }
+
+  const handleOnSubmit = async e => {
+    e.preventDefault()
+    setStatus(prevStatus => ({ ...prevStatus, submitting: true }))
+    
+    await axios.post("http://127.0.0.1:8000/admin_auth", {
+        email: inputs.email,
+        password: inputs.password
+        }).then((response) => {
+        console.log("Good query");
+        console.log(response.data);
+
+        handleResponse(response.status, "Login Successful") /*Good request*/
+
+    }).catch((error) => {
+        console.log("no good query");
+        console.log(error.data);
+        console.log("Error occured", error);
+        handleResponse(error.status , "Error Occured"); /*bad request*/
+
+    }); /*unhandled response rejection warning error may occur*/
+
+
+      }
+
+
+
+
+
+
   return (
     <Layout>
     		<main>
@@ -14,7 +87,7 @@ export default function Admin() {
             crossOrigin="anonymous"/> 
         </div>
        		<Navbar bg="medium" expand="lg">
-          	<Navbar.Brand href="#home">EESAD</Navbar.Brand>
+          	<Navbar.Brand href="/">EESAD</Navbar.Brand>
           	<Navbar.Toggle aria-controls="basic-navbar-nav" />
           	<Navbar.Collapse id="basic-navbar-nav">
           	<Nav className="mr-auto">
@@ -28,20 +101,35 @@ export default function Admin() {
         <h1 className="title"> Enter Your Information Below! </h1>
         <div className="boxed" bg="medium">
         	<div className="forms">
-         	<Form>
-  				<Form.Group controlId="formBasicEmail" className="email">
-    				<Form.Label>Email address</Form.Label>
-    				<Form.Control type="email" placeholder="Enter email" />
-  				</Form.Group>
+                <form onSubmit={handleOnSubmit}>
+                    <label htmlFor="email">Email Address</label>
+                    <input
+                        id="email"
+                        type="text"
+                        onChange={handleOnChange}
+                        required
+                        value={inputs.email}
+                    />
+                    <label htmlFor="password">Password</label>
 
-  				<Form.Group controlId="formBasicPassword">
-    				<Form.Label>Password</Form.Label>
-    				<Form.Control type="password" placeholder="Password" />
-  				</Form.Group>
-  				<Button variant="primary" type="submit">
-    				Submit
-  				</Button>
-			</Form>
+                    <input
+                        id="password"
+                        type="password"
+                        onChange={handleOnChange}
+                        required
+                        value={inputs.password}
+                    />
+
+                    <button type="submit" disabled={status.submitting}>
+                                  {!status.submitting
+                                    ? !status.submitted
+                                      ? 'Log In'
+                                      : 'Logged In'
+                                    : 'Logging In...'}
+                    </button>
+
+
+                </form>
 			</div>
         </div> 
     </main>
@@ -76,7 +164,7 @@ export default function Admin() {
           background-color: grey;
         }
         .boxed {
-       	  width: 30%;
+       	  width: 50%;
        	  display: flex;
        	  justify-content: center;
        	  align-items: center;

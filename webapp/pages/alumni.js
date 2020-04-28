@@ -104,7 +104,7 @@ export default () => {
 
         
         <Navbar bg="medium" expand="lg">
-          <Navbar.Brand href="#home">EESAD</Navbar.Brand>
+          <Navbar.Brand href="/">EESAD</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
