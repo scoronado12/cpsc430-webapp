@@ -78,7 +78,7 @@ export default () => {
         console.log("Good query");
         console.log(response.data);
         if (!response.data){
-            handleResponse(response.status, "An Error has been reached - Try again")
+            handleResponse(400, "An Error has been reached - Try again")
         }else{
             handleResponse(response.status, "Insert Sucessful") /*Good request*/
         }

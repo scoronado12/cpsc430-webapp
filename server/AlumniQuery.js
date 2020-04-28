@@ -118,9 +118,6 @@ app.get("/newsletter", (req, res) => {
 
 
 app.post("/alumni_insert", (req, res) => {
-    res.setTimeout(500, function(){
-        res.sendStatus(408); /*timeout */
-    });
     const first_name  = req.body.first_name;
     const last_name = req.body.last_name;
     const email = req.body.email;
@@ -134,7 +131,7 @@ app.post("/alumni_insert", (req, res) => {
     
     /*degree_obtained is the same as major value within db table*/
     pool.query('INSERT INTO alumnis VALUES (?,?,?,?,?,?,?,?)', [email, first_name, last_name, degree_obtained, grad_year, occupation, newsletter_optin, bio], (err, result) => {
-      if (err || !result) {
+      if (err && !result) {
          console.log(err);
          console.log("bad insert or error");
          /*bad insert*/
