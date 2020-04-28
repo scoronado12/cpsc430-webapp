@@ -13,8 +13,8 @@ Create alumni table if it doesn't exist.
 */
 CREATE TABLE IF NOT EXISTS alumnis (
     email               VARCHAR(50) NOT NULL,
-    first_name          VARCHAR(25),
-    last_name           VARCHAR(25),
+    first_name          VARCHAR(25) NOT NULL,
+    last_name           VARCHAR(25) NOT NULL,
     major               VARCHAR(25),
     graduation_year     INT UNSIGNED,
     occupation          VARCHAR(50),
@@ -37,3 +37,16 @@ INSERT INTO alumnis VALUES
     ("test8@email.com", "hhh_first", "hhh_last", "major 3", 2001, "occupation 4", 1, "test8"),
     ("test9@email.com", "iii_first", "iii_last", "major 2", 2004, "occupation 2", 1, "test9"),
     ("test10@email.com", "jjj_first", "jjj_last", "major 1", 2003, "occupation 4", 1 , "test10"); 
+
+
+CREATE TABLE IF NOT EXISTS admins(
+    userid      INT NOT NULL AUTO INCREMENT,
+    name        VARCHAR(25) NOT NULL,
+    email       VARCHAR(25) NOT NULL,
+    password    VARCHAR(25) NOT NULL,
+    PRIMARY KEY (userid)
+);
+
+
+INSERT INTO admins VALUES
+    (2000, "Main Admin", "main@email.com", "password");
