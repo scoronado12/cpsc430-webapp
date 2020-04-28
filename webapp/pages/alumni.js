@@ -77,11 +77,14 @@ export default () => {
     }).then((response) => {
         console.log("Good query");
         console.log(response.data);
-        if (!response.data){
-            handleResponse(400, "An Error has been reached - Try again")
-        }else{
-            handleResponse(response.status, "Insert Sucessful") /*Good request*/
-        }
+
+        handleResponse(response.status, "Insert Sucessful") /*Good request*/
+
+    }).catch((error) => {
+        console.log("no good query");
+        console.log(error.data);
+        console.log("Error occured", error);
+        handleResponse(error.status , "Error Occured"); /*bad request*/
 
     }); /*unhandled response rejection warning error may occur*/
 

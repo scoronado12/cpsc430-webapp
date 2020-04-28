@@ -135,9 +135,10 @@ app.post("/alumni_insert", (req, res) => {
          console.log(err);
          console.log("bad insert or error");
          /*bad insert*/
-         
+         res.sendStatus(404); 
          return res.send(err);
       } else {
+
          console.log(result);
          console.log(err);
          return res.send(result);
