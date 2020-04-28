@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Layout from '../components/MyLayout'
 import { Button, Navbar, Nav, NavDropdown, Form, FormControl } from 'react-bootstrap'
 import { Jumbotron, Container, Row, Col } from 'react-bootstrap'
-
+import axios from 'axios';
 
 
 export default () => {
@@ -19,9 +19,9 @@ export default () => {
     occupation: '',
     grad_yr: '',
     email: '',
-    degree: '',
-    bio: ''
-
+    degree_obtained: '',
+    bio: '',
+    newsletter_optin: '1'
   })
 
   const handleResponse = (status, msg) => {
@@ -37,7 +37,7 @@ export default () => {
         occupation: '',
         grad_yr: '',
         email: '',
-        degree: '',
+        degree_obtained: '',
         bio: '',
         newsletter_optin: '1' /*TODO set to a default*/
       })
@@ -64,17 +64,30 @@ export default () => {
   const handleOnSubmit = async e => {
     e.preventDefault()
     setStatus(prevStatus => ({ ...prevStatus, submitting: true }))
-    const res = await fetch('/api/db-insert', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(inputs)
-    })
-    const text = await res.text()
-    handleResponse(res.status, text)
-  }
+    
+    await axios.post("http://127.0.0.1:8000/alumni_insert", {
+        email: inputs.email,
+        first_name: inputs.fname,
+        last_name: inputs.lname,
+        occupation: inputs.occuptaion,
+        degree_obtained: inputs.degree_obtained,
+        grad_year: inputs.grad_yr,
+        bio: inputs.bio,
+        newsletter_optin: '1'
+    }).then((response) => {
+        console.log(response.data);
 
+        handleResponse(response.status, "Insert Sucessful") /*Good request*/
+
+    }).catch((error) => {
+        console.log(error.data);
+        console.log("Error occured", error);
+        handleResponse(response.status , "Error Occured"); /*bad request*/
+
+    }); /*unhandled response rejection warning error may occur*/
+
+
+      }
 
 
       return (
@@ -151,10 +164,10 @@ export default () => {
 
            <label htmlFor="degree">Degree Obtained</label>
             <input
-              id="degree"
+              id="degree_obtained"
               onChange={handleOnChange}
               required
-              value={inputs.degree}
+              value={inputs.degree_obtained}
             />
             <p></p>
 
