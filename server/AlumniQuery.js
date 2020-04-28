@@ -7,7 +7,7 @@ var bodyparser = require("body-parser");
 // Initialize DB connection.
 var pool = mysql.createPool({ 
     connectionLimit: 50,            // Number of concurrent connections to DB.
-    host: "192.168.0.1"/*process.env.MYSQL_HOST*/,   // To be changed.
+    host: process.env.MYSQL_HOST,   // To be changed.
     user: "root",                   // To be changed.
     password: "mysql-root-pass",    // Might want to hash.
     database: "earth_sci",
@@ -133,23 +133,23 @@ app.post("/alumni_insert", (req, res) => {
     console.log("QUERY" + req.body.first_name);
     
     /*degree_obtained is the same as major value within db table*/
-    try{
     pool.query('INSERT INTO alumnis VALUES (?,?,?,?,?,?,?,?)', [email, first_name, last_name, degree_obtained, grad_year, occupation, newsletter_optin, bio], (err, result) => {
-      if (err) {
+      if (err || !result) {
          console.log(err);
+         console.log("bad insert or error");
          /*bad insert*/
-
+         
          return res.send(err);
       } else {
          console.log(result);
+         console.log(err);
          return res.send(result);
       }
-    });
-
-    } catch (ETIMEDOUT){
-        res.sendStatus(408); 
-
-    }
+    }).on('error', function(e){
+        res.sendStatus(408);
+        console.log("Timed out");
+        console.log(e);
+    }).end();
 });
 
 app.listen(8000, () => {

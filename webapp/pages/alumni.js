@@ -75,14 +75,13 @@ export default () => {
         bio: inputs.bio,
         newsletter_optin: '1'
     }).then((response) => {
+        console.log("Good query");
         console.log(response.data);
-
-        handleResponse(response.status, "Insert Sucessful") /*Good request*/
-
-    }).catch((error) => {
-        console.log(error.data);
-        console.log("Error occured", error);
-        handleResponse(response.status , "Error Occured"); /*bad request*/
+        if (!response.data){
+            handleResponse(response.status, "An Error has been reached - Try again")
+        }else{
+            handleResponse(response.status, "Insert Sucessful") /*Good request*/
+        }
 
     }); /*unhandled response rejection warning error may occur*/
 
