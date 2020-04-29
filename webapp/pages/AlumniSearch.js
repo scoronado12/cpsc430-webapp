@@ -1,9 +1,9 @@
-import axios from 'axios';
+import await axios from 'await axios';
 
 const HOST = "http://127.0.0.1:8000";
 
 function getByEmail(email) {
-    axios.get(HOST + "/email", {
+    await axios.get(HOST + "/email", {
         params: {
             field: email,
         },
@@ -13,7 +13,7 @@ function getByEmail(email) {
 }
 
 function getByFirstName(fname) {
-    axios.get(HOST + "/first_name", {
+    await axios.get(HOST + "/first_name", {
         params: {
             field: fname,
         },
@@ -23,7 +23,7 @@ function getByFirstName(fname) {
 }
 
 function getByLastName(lname) {
-    axios.get(HOST + "/last_name", {
+    await axios.get(HOST + "/last_name", {
         params: {
             field: lname,
         },
@@ -33,7 +33,7 @@ function getByLastName(lname) {
 }
 
 function getByMajor(major) {
-    axios.get(HOST + "/major", {
+    await axios.get(HOST + "/major", {
         params: {
             field: major,
         },
@@ -43,7 +43,7 @@ function getByMajor(major) {
 }
 
 function getByYear(year) {
-    axios.get(HOST + "/graduation_year", {
+    await axios.get(HOST + "/graduation_year", {
         params: {
             field: year,
         },
@@ -53,7 +53,7 @@ function getByYear(year) {
 }
 
 function getByOccupation(occupation) {
-    axios.get(HOST + "/occupation", {
+    await axios.get(HOST + "/occupation", {
         params: {
             field: occupation,
         },
@@ -64,11 +64,48 @@ function getByOccupation(occupation) {
 
 // Boolean true or false.
 function getByOptIn(yes) {
-    axios.get(HOST + "/newsletter", {
+    await axios.get(HOST + "/newsletter", {
         params: {
             field: yes,
         },
     }).then((response) => {
         return response.data;
     });
+}
+
+handleOnSubmit(evt)( {
+    switch(/*Radio button that selects search criteria*/) {
+        case /*email*/:
+            // TODO: Conditional that checks for valid values, execute the case if valid.
+            result = async getByEmail(/*text field value*/);
+            // TODO: process result as in display result in a table.
+            break;
+        case /*first name*/:
+            // TODO: Conditional that checks for valid values, execute the case if valid.
+            result = async getByFirstName(/*text field value*/);
+            // TODO: process result as in display result in a table.
+            break;
+        case /*major*/:
+            // TODO: Conditional that checks for valid values, execute the case if valid.
+            result = async getByMajor(/*text field value*/);
+            // TODO: process result as in display result in a table.
+            break;
+        case /*graduation year*/:
+            // TODO: Conditional that checks for valid values, execute the case if valid.
+            result = async getByYear(/*text field value*/);
+            // TODO: process result as in display result in a table.
+            break;
+        case /*Occupation*/:
+            // TODO: Conditional that checks for valid values, execute the case if valid.
+            result = async getByOccupation(/*text field value*/);
+            // TODO: process result as in display result in a table.
+            break;
+        case /*newsletter opt-in*/:
+            // TODO: Conditional that checks for valid values, execute the case if valid.
+            result = async getByOptIn(/*text field value*/);
+            // TODO: process result as in display result in a table.
+            break;
+        default:
+            break;
+    }
 }
