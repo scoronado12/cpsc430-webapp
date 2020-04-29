@@ -1,8 +1,9 @@
+var argon2 = require("argon2");
 var express = require("express");
-var mysql = require("mysql");
+var bodyParser = require("body-parser");
 var app = express();
 var cors = require("cors");
-var bodyparser = require("body-parser");
+var mysql = require("mysql");
 
 // Initialize DB connection.
 var pool = mysql.createPool({ 
@@ -15,8 +16,8 @@ var pool = mysql.createPool({
 });
 
 app.use(cors());
-app.use(bodyparser.urlencoded({ extended: true}));
-app.use(bodyparser.json());
+app.use(bodyParser.urlencoded({ extended: true}));
+app.use(bodyParser.json());
 
 app.get("/email", (req, res) => {
     const { field } = req.query;
@@ -32,10 +33,27 @@ app.get("/email", (req, res) => {
     });
 });
 
-app.get("/first_name", (req, res) => {
-    const { field } = req.query;
+app.get("/search", (req, res) => {
+    const { value } = req.query;
+    console.log(req.query);
+    console.log(value);
+    pool.query('SELECT * FROM alumnis WHERE first_name LIKE ?', [value], (err, result) => {
+      if (err) {
+         console.log(err);
+         return res.send(err);
+      } else {
+        console.log("rowcount= ", result.rowCount);
+         console.log(result);
+         return res.send(result);
+      }
+    });
+});
 
-    pool.query('SELECT * FROM alumnis WHERE first_name = ?', [field], (err, result) => {
+app.get("/first_name", (req, res) => {
+    const { value } = req.query;
+    console.log(req.query);
+    console.log(value);
+    pool.query('SELECT * FROM alumnis WHERE first_name LIKE ?', [value], (err, result) => {
       if (err) {
          console.log(err);
          return res.send(err);

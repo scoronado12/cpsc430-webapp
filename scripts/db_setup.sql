@@ -40,11 +40,10 @@ INSERT INTO alumnis VALUES
 
 
 CREATE TABLE IF NOT EXISTS admins(
-    userid      INT NOT NULL AUTO INCREMENT,
+    userid      INT AUTO_INCREMENT PRIMARY KEY,
     name        VARCHAR(25) NOT NULL,
     email       VARCHAR(25) NOT NULL,
-    password    VARCHAR(25) NOT NULL,
-    PRIMARY KEY (userid)
+    password    VARCHAR(25) NOT NULL
 );
 
 

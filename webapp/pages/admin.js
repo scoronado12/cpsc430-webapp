@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import Layout from '../components/MyLayout';
+import jsCookie from "js-cookie";
 import Link from 'next/link';
 import { Button, Navbar, Nav, NavDropdown, Form, FormControl } from 'react-bootstrap';
 import { Jumbotron, Container, Row, Col } from 'react-bootstrap';
@@ -68,14 +69,6 @@ export default () => {
         handleResponse(error.status , "Error Occured"); /*bad request*/
 
     }); /*unhandled response rejection warning error may occur*/
-
-
-      }
-
-
-
-
-
 
   return (
     <Layout>
