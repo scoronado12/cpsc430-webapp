@@ -109,10 +109,10 @@ class Email extends Component {
             <Button onClick={this.handleOnSubmit.bind(this)}>Send</Button>
           </Form>
           {this.state.info.error && (
-            <div className="error">Error: {this.state.info.msg}</div>
+              <div className="error">{alert("Error:" + this.state.info.msg)}</div>
           )}
           {!this.state.info.error && this.state.info.msg && (
-            <div className="success">{this.state.info.msg}</div>
+            <div className="success">{alert(this.state.info.msg)}</div>
           )}
 
         </div>
