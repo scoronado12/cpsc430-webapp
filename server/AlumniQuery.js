@@ -168,6 +168,26 @@ app.post("/alumni_insert", (req, res) => {
     }).end();
 });
 
+app.post("/admin_auth", (req,res) => {
+   const email = req.body.email;
+   const password = req.body.password;
+   console.log("logging in now!");
+   pool.query('SELECT name, userid FROM admins WHERE email = ? AND password = ?', [email, password], (err, result) =>{
+      console.log("pretest");
+      console.log(result.length)
+      for(x in result){
+         console.log(x)
+      }
+      if(err || result.length != 1){
+         console.log("Error");
+         return res.send();
+      } else {
+         console.log("success");
+         return res.send(result);
+      }
+   })
+});
+
 app.listen(8000, () => {
     console.log("Running...");
 });

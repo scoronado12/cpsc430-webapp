@@ -20,6 +20,7 @@ export default () => {
 
   const handleResponse = (status, msg) => {
     if (status === 200) {
+      console.log("handling response");
       setStatus({
         submitted: true,
         submitting: false,
@@ -58,7 +59,7 @@ export default () => {
         password: inputs.password
         }).then((response) => {
         console.log("Good query");
-        console.log(response.data);
+        console.log(response);
 
         handleResponse(response.status, "Login Successful") /*Good request*/
 
