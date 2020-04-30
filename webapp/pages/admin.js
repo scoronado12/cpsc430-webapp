@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import Layout from '../components/MyLayout';
+import Router from "next/router";
 import jsCookie from "js-cookie";
 import Link from 'next/link';
 import { Button, Navbar, Nav, NavDropdown, Form, FormControl } from 'react-bootstrap';
@@ -57,17 +58,24 @@ export default () => {
     await axios.post("http://127.0.0.1:8000/admin_auth", {
         email: inputs.email,
         password: inputs.password
-        }).then((response) => {
-        console.log("Good query");
-        console.log(response);
+        }).then((userAccountData) => {
+            console.log("Brought back result")
+            console.log(userAccountData);
 
-        handleResponse(response.status, "Login Successful") /*Good request*/
-
+            this.setState({userAccountData});
+            /* UserAccountData This consists of a name and userid*/
+            
+            jsCookie.set("Active_User", this.state.email)
+            
+            handleResponse(userAccountData.status, "Login Successful") /*Good request*/
+            
+            Router.replace("/search");
+        //create session 
     }).catch((error) => {
-        console.log("no good query");
+        console.log("Login Failed");
         console.log(error.data);
-        console.log("Error occured", error);
-        handleResponse(error.status , "Error Occured"); /*bad request*/
+        handleResponse(error.status , "Incorrect Username or Password"); /*bad request*/
+        alert("Incorrect Username or Password - Please Try Again");
 
     }); /*unhandled response rejection warning error may occur*/
 }
