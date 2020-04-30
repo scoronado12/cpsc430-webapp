@@ -86,7 +86,7 @@ class Search extends Component {
             this.setState({results: response.data});
         });
     }
-
+    /*TODO bolden selected radio button column*/
     displayResult() {
         this.resultData = this.state.results.map((object, key) => {
             return (
