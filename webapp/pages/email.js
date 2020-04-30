@@ -3,10 +3,22 @@ import Link from 'next/link'
 import Layout from '../components/MyLayout'
 import { Button, Navbar, Nav, NavDropdown, Form, FormControl } from 'react-bootstrap'
 import { Jumbotron, Container, Row, Col } from 'react-bootstrap'
+import axios from 'axios';
+
+
+function getEmailList(){
+    axios.get('http://127.0.0.1:8000/email', {
+        }).then((response) => {
+            console.log("Good query");
+            console.log(response);
+            console.log(response.data);
+        }).catch((error) => {
+            console.log("Error occured client side")
+        });
+}
 
 
 class Email extends Component {
-//export default () => {
   constructor(props){
     super(props);
     this.state = {
@@ -17,24 +29,16 @@ class Email extends Component {
       message: '',
     }
   }
-  /*
-  const [status, setStatus] = useState({
-    submitted: false,
-    submitting: false,
-    info: { error: false, msg: null }
-  })
+  
 
-  const [inputs, setInputs] = useState({
-    subject: '',
-    message: ''
-  })
-  */
-  handleResponse = (status, msg) => {
+
+ handleResponse = (status, msg) => {
     if (status === 200) {
       this.setState({
         submitted: true,
         submitting: false,
         info: {error: false, msg: msg},
+        emails: '',
         subject: '',
         message: ''
       })
@@ -50,7 +54,9 @@ class Email extends Component {
   handleOnSubmit = async e => {
     e.preventDefault()
     this.setState({ submitting: true });
-    var inputs = ({message: this.state.message, subject: this.state.subject })
+    var inputs = ({emails: this.state.emails,
+                message: this.state.message, 
+                subject: this.state.subject })
     const res = await fetch('/api/sendgrid-server', {
       method: 'POST',
       headers: {
@@ -77,6 +83,7 @@ class Email extends Component {
             href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
             integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
             crossOrigin="anonymous"/> 
+            {getEmailList()}
         </div>
 
         
