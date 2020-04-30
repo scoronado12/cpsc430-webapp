@@ -115,27 +115,22 @@ class Search extends Component {
 
         switch(checked) {
             case "email":
-                // TODO: Conditional that checks for valid values, execute the case if valid.
                 this.getByEmail(input);
                 this.displayResult();
                 break;
             case "fname":
-                // TODO: Conditional that checks for valid values, execute the case if valid.
                 this.getByFirstName(input);
                 this.displayResult();
                 break;
             case "major":
-                // TODO: Conditional that checks for valid values, execute the case if valid.
                 this.getByMajor(input);
                 this.displayResult();
                 break;
             case "gradYear":
-                // TODO: Conditional that checks for valid values, execute the case if valid.
                 this.getByYear(input);
                 this.displayResult();
                 break;
             case "occupation":
-                // TODO: Conditional that checks for valid values, execute the case if valid.
                 this.getByOccupation(input);
                 this.displayResult();
                 break;
@@ -254,7 +249,7 @@ class Search extends Component {
                     }
                     .boxed {
                         border: 2px solid #03254c;
-                        background-color: rgba(211, 211, 211, 0.5);
+                        background-color: rgba(211, 211, 211, 0.8);
                         text-align: center;
                         font-size: 32px;
                         margin-left: 12px;
