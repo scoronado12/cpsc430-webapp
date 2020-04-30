@@ -1,7 +1,8 @@
 var express = require("express");
-var mysql = require("mysql");
+var bodyParser = require("body-parser");
 var app = express();
 var cors = require("cors");
+var mysql = require("mysql");
 
 // Initialize DB connection.
 var pool = mysql.createPool({ 
@@ -14,11 +15,12 @@ var pool = mysql.createPool({
 });
 
 app.use(cors());
+app.use(bodyParser.urlencoded({ extended: true}));
+app.use(bodyParser.json());
 
 app.get("/email", (req, res) => {
-    const { field } = req.query;
 
-    pool.query('SELECT * FROM alumnis WHERE email = ?', [field], (err, result) => {
+    pool.query('SELECT email FROM alumnis WHERE newletter_opt_in = 1', (err, result) => {
       if (err) {
          console.log(err);
          return res.send(err);
@@ -29,10 +31,53 @@ app.get("/email", (req, res) => {
     });
 });
 
+app.get("/getUsersByEmails", (req, res) => {
+
+    const {field} = req.query;
+    
+    console.log(req.query);
+
+    var statement = 'SELECT * FROM alumnis where email LIKE ' + pool.escape("%" + field + "%");
+    console.log("SQL:" + statement);
+    pool.query( statement , (err, result) => {
+      if (err) {
+         console.log(err);
+         return res.send(err);
+      } else {
+         console.log(result);
+         return res.send(result);
+      }
+    });
+});
+
+
+
+
+
+
+
+app.get("/search", (req, res) => {
+    const { value } = req.query;
+    console.log(req.query);
+    console.log(value);
+    pool.query('SELECT * FROM alumnis WHERE first_name LIKE ?', [value], (err, result) => {
+      if (err) {
+         console.log(err);
+         return res.send(err);
+      } else {
+        console.log("rowcount= ", result.rowCount);
+         console.log(result);
+         return res.send(result);
+      }
+    });
+});
+
 app.get("/first_name", (req, res) => {
     const { field } = req.query;
+    console.log(req.query);
+    var statement = 'SELECT * FROM alumnis where first_name LIKE ' + pool.escape("%" + field + "%");
 
-    pool.query('SELECT * FROM alumnis WHERE first_name = ?', [field], (err, result) => {
+    pool.query(statement , (err, result) => {
       if (err) {
          console.log(err);
          return res.send(err);
@@ -44,9 +89,11 @@ app.get("/first_name", (req, res) => {
 });
 
 app.get("/last_name", (req, res) => {
+    console.log("Querying lastname")
     const { field } = req.query;
-
-    pool.query('SELECT * FROM alumnis WHERE last_name = ?', [field], (err, result) => {
+    var statement = 'SELECT * FROM alumnis where last_name LIKE ' + pool.escape("%" + field + "%");
+    console.log("SQL: " +  statement);
+    pool.query( statement ,(err, result) => {
       if (err) {
          console.log(err);
          return res.send(err);
@@ -87,8 +134,8 @@ app.get("/graduation_year", (req, res) => {
 
 app.get("/occupation", (req, res) => {
     const { field } = req.query;
-
-    pool.query('SELECT * FROM alumnis WHERE occupation = ?', [field], (err, result) => {
+    var statement = 'SELECT * FROM alumnis where occupation LIKE ' + pool.escape("%" + field + "%");
+    pool.query(statement , (err, result) => {
       if (err) {
          console.log(err);
          return res.send(err);
@@ -111,6 +158,58 @@ app.get("/newsletter", (req, res) => {
          return res.send(result);
       }
     });
+});
+
+
+app.post("/alumni_insert", (req, res) => {
+    const first_name  = req.body.first_name;
+    const last_name = req.body.last_name;
+    const email = req.body.email;
+    const occupation = req.body.occupation;
+    const degree_obtained = req.body.degree_obtained;
+    const grad_year  = req.body.grad_year;
+    const bio = req.body.bio;
+    const newsletter_optin = req.body.newsletter_optin;
+    
+    console.log("QUERY" + req.body.first_name);
+    
+    /*degree_obtained is the same as major value within db table*/
+    pool.query('INSERT INTO alumnis VALUES (?,?,?,?,?,?,?,?)', [email, first_name, last_name, degree_obtained, grad_year, occupation, newsletter_optin, bio], (err, result) => {
+      if (err && !result) {
+         console.log(err);
+         console.log("bad insert or error");
+         /*bad insert*/
+         res.sendStatus(404); 
+         return res.send(err);
+      } else {
+
+         console.log(result);
+         console.log(err);
+         return res.send(result);
+      }
+    }).on('error', function(e){
+        res.sendStatus(408);
+        console.log("Timed out");
+        console.log(e);
+    }).end();
+});
+
+app.post("/admin_auth", (req,res) => {
+   const email = req.body.email;
+   const password = req.body.password;
+   console.log("logging in now!");
+   pool.query('SELECT name, userid FROM admins WHERE email = ? AND password = ?', [email, password], (err, result) =>{
+      console.log("pretest");
+      console.log(result.length)
+
+      if(err || result.length != 1){
+         console.log("Error");
+         return res.send();
+      } else {
+         console.log("success");
+         return res.send(result);
+      }
+   })
 });
 
 app.listen(8000, () => {
