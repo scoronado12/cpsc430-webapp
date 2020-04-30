@@ -1,5 +1,4 @@
-# cpsc430-webapp
-
+# CPSC 430 Enviromental Science Database Web App 
 **Do not forget that you should not commit in master!**
 
 # Where the Code lives
