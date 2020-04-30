@@ -8,6 +8,7 @@ import axios from 'axios';
 const HOST = "http://127.0.0.1:8000";
 
 class Search extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -86,11 +87,27 @@ class Search extends Component {
         });
     }
 
+    displayResult() {
+        this.resultData = this.state.results.map((object, key) => {
+            return (
+                <tr key={key}>
+                    <td>{object.first_name}</td>
+                    <td>{object.last_name}</td>
+                    <td>{object.major}</td>
+                    <td>{object.graduation_year}</td>
+                    <td>{object.occupation}</td>
+                    <td>{object.newletter_opt_in}</td>
+                    <td>{object.email}</td>
+                </tr>
+            );
+        });
+    }
+
     handleOnSubmit(evt) {
         var input = document.getElementById("inputField").value;
         var group = document.getElementsByName("searchGroup");
         var checked = null;
-        for (radio of group) {
+        for (var radio of group) {
            if (radio.checked) {
                 checked = radio.value;
            }
@@ -99,28 +116,28 @@ class Search extends Component {
         switch(checked) {
             case "email":
                 // TODO: Conditional that checks for valid values, execute the case if valid.
-                getByEmail(input);
-                // TODO: process result as in display result in a table.
+                this.getByEmail(input);
+                this.displayResult();
                 break;
             case "fname":
                 // TODO: Conditional that checks for valid values, execute the case if valid.
-                getByFirstName(input);
-                // TODO: process result as in display result in a table.
+                this.getByFirstName(input);
+                this.displayResult();
                 break;
             case "major":
                 // TODO: Conditional that checks for valid values, execute the case if valid.
-                getByMajor(input);
-                // TODO: process result as in display result in a table.
+                this.getByMajor(input);
+                this.displayResult();
                 break;
             case "gradYear":
                 // TODO: Conditional that checks for valid values, execute the case if valid.
-                getByYear(input);
-                // TODO: process result as in display result in a table.
+                this.getByYear(input);
+                this.displayResult();
                 break;
             case "occupation":
                 // TODO: Conditional that checks for valid values, execute the case if valid.
-                getByOccupation(input);
-                // TODO: process result as in display result in a table.
+                this.getByOccupation(input);
+                this.displayResult();
                 break;
             default:
                 break;
@@ -128,7 +145,6 @@ class Search extends Component {
     }
 
     render() {
-        var result
         return (
             <Layout>
                 <main>
@@ -202,6 +218,7 @@ class Search extends Component {
                                 </tr>
                             </thead>
                             <tbody>
+                                {this.resultData}
                             </tbody>
                         </table>
                     </div>
