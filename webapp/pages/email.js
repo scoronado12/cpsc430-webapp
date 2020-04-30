@@ -62,7 +62,8 @@ class Email extends Component {
         subject: this.state.subject
       }*/
     })
-    const text = await res.text()
+    const text = await res.text();
+    alert(text);
     this.handleResponse(res.status, text);
   }
 
@@ -109,7 +110,7 @@ class Email extends Component {
             <Button onClick={this.handleOnSubmit.bind(this)}>Send</Button>
           </Form>
           {this.state.info.error && (
-              <div className="error">{alert("Error:" + this.state.info.msg)}</div>
+              <div className="error">{"Error:" + this.state.info.msg}</div>
           )}
           {!this.state.info.error && this.state.info.msg && (
             <div className="success">{this.state.info.msg}</div>
