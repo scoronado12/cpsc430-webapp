@@ -22,6 +22,7 @@ class Search extends Component {
                 field: email,
             },
         }).then((response) => {
+            this.displayResult(response);
             this.setState({results: response.data});
         });
     }
@@ -32,6 +33,7 @@ class Search extends Component {
                 field: fname,
             },
         }).then((response) => {
+            this.displayResult(response);
             this.setState({results: response.data});
         });
     }
@@ -42,6 +44,7 @@ class Search extends Component {
                 field: lname,
             },
         }).then((response) => {
+            this.displayResult(response);
             this.setState({results: response.data});
         });
     }
@@ -52,6 +55,7 @@ class Search extends Component {
                 field: major,
             },
         }).then((response) => {
+            this.displayResult(response);
             this.setState({results: response.data});
         });
     }
@@ -62,6 +66,7 @@ class Search extends Component {
                 field: year,
             },
         }).then((response) => {
+            this.displayResult(response);
             this.setState({results: response.data});
         });
     }
@@ -72,6 +77,7 @@ class Search extends Component {
                 field: occupation,
             },
         }).then((response) => {
+            this.displayResult(response);
             this.setState({results: response.data});
         });
     }
@@ -83,23 +89,61 @@ class Search extends Component {
                 field: yes,
             },
         }).then((response) => {
+            this.displayResult(response);
             this.setState({results: response.data});
         });
     }
+
     /*TODO bolden selected radio button column*/
-    displayResult() {
+    displayResult(response) {
+        this.setState({results: response.data});
         this.resultData = this.state.results.map((object, key) => {
-            return (
-                <tr key={key}>
-                    <td>{object.first_name}</td>
-                    <td>{object.last_name}</td>
-                    <td>{object.major}</td>
-                    <td>{object.graduation_year}</td>
-                    <td>{object.occupation}</td>
-                    <td>{object.newletter_opt_in}</td>
-                    <td>{object.email}</td>
-                </tr>
-            );
+            var box = (object.newletter_opt_in == 1 ? [<input type="checkbox" checked disabled />] : [<input type="checkbox" disabled />]);
+            switch(document.getElementById("newsletterSelect").value) {
+                case "both":
+                    return (
+                        <tr key={key}>
+                            <td>{object.first_name}</td>
+                            <td>{object.last_name}</td>
+                            <td>{object.major}</td>
+                            <td>{object.graduation_year}</td>
+                            <td>{object.occupation}</td>
+                            <td>{box}</td>
+                            <td>{object.email}</td>
+                        </tr>
+                    );
+                    break;
+                case "yes":
+                    if (object.newletter_opt_in == 1) {
+                        return (
+                            <tr key={key}>
+                                <td>{object.first_name}</td>
+                                <td>{object.last_name}</td>
+                                <td>{object.major}</td>
+                                <td>{object.graduation_year}</td>
+                                <td>{object.occupation}</td>
+                                <td>{box}</td>
+                                <td>{object.email}</td>
+                            </tr>
+                        );    
+                    }
+                    break;
+                case "no":
+                    if (object.newletter_opt_in == 0) {
+                        return (
+                            <tr key={key}>
+                                <td>{object.first_name}</td>
+                                <td>{object.last_name}</td>
+                                <td>{object.major}</td>
+                                <td>{object.graduation_year}</td>
+                                <td>{object.occupation}</td>
+                                <td>{box}</td>
+                                <td>{object.email}</td>
+                            </tr>
+                        );    
+                    }
+                    break;
+            }
         });
     }
 
@@ -116,26 +160,20 @@ class Search extends Component {
         switch(checked) {
             case "email":
                 this.getByEmail(input);
-                this.displayResult();
                 break;
             case "fname":
                 this.getByFirstName(input);
-                this.displayResult();
                 break;
             case "lname":
                 this.getByLastName(input);
-                this.displayResult();
             case "major":
                 this.getByMajor(input);
-                this.displayResult();
                 break;
             case "gradYear":
                 this.getByYear(input);
-                this.displayResult();
                 break;
             case "occupation":
                 this.getByOccupation(input);
-                this.displayResult();
                 break;
             default:
                 break;
@@ -196,9 +234,9 @@ class Search extends Component {
                             <div>
                                 <label htmlFor="newsletterSelect">Opted in newsLetter?</label>
                                 <select id="newsletterSelect">
-                                    <option checked>Both</option>
-                                    <option>Yes</option>
-                                    <option>No</option>
+                                    <option value="both" checked>Both</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
                                 </select>
                             </div>
                                 <Button onClick={this.handleOnSubmit.bind(this)}>Search</Button>
