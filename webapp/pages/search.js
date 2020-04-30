@@ -11,14 +11,8 @@ class Search extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            first_name: "",
-            last_name: "",
-            email: "",
-            occupation: "",
-            degree: "",
-            grad_year: "",
-            bio: ""
-        }
+            results: []
+        };
     }
   
     async getByEmail(email) {
@@ -27,7 +21,7 @@ class Search extends Component {
                 field: email,
             },
         }).then((response) => {
-            return response.data;
+            this.setState({results: response.data});
         });
     }
 
@@ -37,7 +31,7 @@ class Search extends Component {
                 field: fname,
             },
         }).then((response) => {
-            return response.data;
+            this.setState({results: response.data});
         });
     }
 
@@ -47,7 +41,7 @@ class Search extends Component {
                 field: lname,
             },
         }).then((response) => {
-            return response.data;
+            this.setState({results: response.data});
         });
     }
 
@@ -57,7 +51,7 @@ class Search extends Component {
                 field: major,
             },
         }).then((response) => {
-            return response.data;
+            this.setState({results: response.data});
         });
     }
 
@@ -67,7 +61,7 @@ class Search extends Component {
                 field: year,
             },
         }).then((response) => {
-            return response.data;
+            this.setState({results: response.data});
         });
     }
 
@@ -77,7 +71,7 @@ class Search extends Component {
                 field: occupation,
             },
         }).then((response) => {
-            return response.data;
+            this.setState({results: response.data});
         });
     }
 
@@ -88,45 +82,49 @@ class Search extends Component {
                 field: yes,
             },
         }).then((response) => {
-            return response.data;
+            this.setState({results: response.data});
         });
     }
 
     handleOnSubmit(evt) {
-        //switch(/*Radio button that selects search criteria*/) {
-            //case /*email*/:
+        var input = document.getElementById("inputField").value;
+        var group = document.getElementsByName("searchGroup");
+        var checked = null;
+        for (radio of group) {
+           if (radio.checked) {
+                checked = radio.value;
+           }
+        }
+
+        switch(checked) {
+            case "email":
                 // TODO: Conditional that checks for valid values, execute the case if valid.
-                //result = async getByEmail(/*text field value*/);
+                getByEmail(input);
                 // TODO: process result as in display result in a table.
-                //break;
-            //case /*first name*/:
+                break;
+            case "fname":
                 // TODO: Conditional that checks for valid values, execute the case if valid.
-                //result = async getByFirstName(/*text field value*/);
+                getByFirstName(input);
                 // TODO: process result as in display result in a table.
-                //break;
-            //case /*major*/:
+                break;
+            case "major":
                 // TODO: Conditional that checks for valid values, execute the case if valid.
-                //result = async getByMajor(/*text field value*/);
+                getByMajor(input);
                 // TODO: process result as in display result in a table.
-                //break;
-            //case /*graduation year*/:
+                break;
+            case "gradYear":
                 // TODO: Conditional that checks for valid values, execute the case if valid.
-                //result = async getByYear(/*text field value*/);
+                getByYear(input);
                 // TODO: process result as in display result in a table.
-                //break;
-            //case /*Occupation*/:
+                break;
+            case "occupation":
                 // TODO: Conditional that checks for valid values, execute the case if valid.
-                //result = async getByOccupation(/*text field value*/);
+                getByOccupation(input);
                 // TODO: process result as in display result in a table.
-                //break;
-            //case /*newsletter opt-in*/:
-                // TODO: Conditional that checks for valid values, execute the case if valid.
-                //result = async getByOptIn(/*text field value*/);
-                // TODO: process result as in display result in a table.
-                //break;
-            //default:
-                //break;
-        //}
+                break;
+            default:
+                break;
+        }
     }
 
     render() {
@@ -156,34 +154,40 @@ class Search extends Component {
                     <div className="boxed" bg="medium">
                         <form className="search-form">
                             <div>
-                                <label for="inputField">Search:</label>
+                                <label htmlFor="inputField">Search:</label>
                                 <input type="text" id="inputField" />
                             </div>
                             <div>
                                 <label>Search Criteria</label>
                             </div>
-                            <div>
-                                <input type="radio" id="firstNameRadio" />
-                                <label for="firstNameRadio">First Name</label>
-                                <input type="radio" id="LastNameRadio" />
-                                <label for="lastNameRadio">Last Name</label>
-                                <input type="radio" id="majorRadio" />
-                                <label for="majorRadio">Major</label>
-                                <input type="radio" id="gradYearRadio" />
-                                <label for="gradYearRadio">Graduation Year</label>
-                                <input type="radio" id="occupationRadio" />
-                                <label for="occupationRadio">Occupation</label>
-                                <input type="radio" id="emailRadio" />
-                                <label for="emailRadio">E-mail</label>
+                            <div role="group">
+                                <input type="radio" id="firstNameRadio" name="searchGroup" value="fname" />
+                                <label htmlFor="firstNameRadio">First Name</label>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <input type="radio" id="LastNameRadio" name="searchGroup" value="lname" />
+                                <label htmlFor="lastNameRadio">Last Name</label>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <input type="radio" id="majorRadio" name="searchGroup" value="major" />
+                                <label htmlFor="majorRadio">Major</label>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <input type="radio" id="gradYearRadio" name="searchGroup" value="gradYear"/>
+                                <label htmlFor="gradYearRadio">Graduation Year</label>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <input type="radio" id="occupationRadio" name="searchGroup" value="occupation" />
+                                <label htmlFor="occupationRadio">Occupation</label>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <input type="radio" id="emailRadio" name="searchGroup" value="email" />
+                                <label htmlFor="emailRadio">E-mail</label>
                             </div>
                             <div>
-                                <label for="newsletterSelect">Opted in newsLetter?</label>
+                                <label htmlFor="newsletterSelect">Opted in newsLetter?</label>
                                 <select id="newsletterSelect">
                                     <option checked>Both</option>
                                     <option>Yes</option>
                                     <option>No</option>
                                 </select>
                             </div>
+                                <Button onClick={this.handleOnSubmit.bind(this)}>Search</Button>
                         </form>
                         <table className="table">
                             <thead>
@@ -248,6 +252,7 @@ class Search extends Component {
                     }
                     .search-form {
                         font-size: 15px;
+                        padding: 10px;
                     }
                 `}
                 </style>
