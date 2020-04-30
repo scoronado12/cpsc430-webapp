@@ -31,6 +31,31 @@ app.get("/email", (req, res) => {
     });
 });
 
+app.get("/getUsersByEmails", (req, res) => {
+
+    const {field} = req.query;
+    
+    console.log(req.query);
+
+    var statement = 'SELECT * FROM alumnis where email LIKE ' + pool.escape("%" + field + "%");
+    console.log("SQL:" + statement);
+    pool.query( statement , (err, result) => {
+      if (err) {
+         console.log(err);
+         return res.send(err);
+      } else {
+         console.log(result);
+         return res.send(result);
+      }
+    });
+});
+
+
+
+
+
+
+
 app.get("/search", (req, res) => {
     const { value } = req.query;
     console.log(req.query);

@@ -17,7 +17,7 @@ class Search extends Component {
     }
   
     async getByEmail(email) {
-        await axios.get(HOST + "/email", {
+        await axios.get(HOST + "/getUsersByEmails", {
             params: {
                 field: email,
             },
