@@ -73,10 +73,11 @@ app.get("/search", (req, res) => {
 });
 
 app.get("/first_name", (req, res) => {
-    const { value } = req.query;
+    const { field } = req.query;
     console.log(req.query);
-    console.log(value);
-    pool.query('SELECT * FROM alumnis WHERE first_name LIKE ?', [value], (err, result) => {
+    var statement = 'SELECT * FROM alumnis where first_name LIKE ' + pool.escape("%" + field + "%");
+
+    pool.query(statement , (err, result) => {
       if (err) {
          console.log(err);
          return res.send(err);
@@ -88,9 +89,11 @@ app.get("/first_name", (req, res) => {
 });
 
 app.get("/last_name", (req, res) => {
+    console.log("Querying lastname")
     const { field } = req.query;
-
-    pool.query('SELECT * FROM alumnis WHERE last_name = ?', [field], (err, result) => {
+    var statement = 'SELECT * FROM alumnis where last_name LIKE ' + pool.escape("%" + field + "%");
+    console.log("SQL: " +  statement);
+    pool.query( statement ,(err, result) => {
       if (err) {
          console.log(err);
          return res.send(err);
@@ -131,8 +134,8 @@ app.get("/graduation_year", (req, res) => {
 
 app.get("/occupation", (req, res) => {
     const { field } = req.query;
-
-    pool.query('SELECT * FROM alumnis WHERE occupation = ?', [field], (err, result) => {
+    var statement = 'SELECT * FROM alumnis where occupation LIKE ' + pool.escape("%" + field + "%");
+    pool.query(statement , (err, result) => {
       if (err) {
          console.log(err);
          return res.send(err);

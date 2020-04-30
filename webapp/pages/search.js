@@ -122,6 +122,9 @@ class Search extends Component {
                 this.getByFirstName(input);
                 this.displayResult();
                 break;
+            case "lname":
+                this.getByLastName(input);
+                this.displayResult();
             case "major":
                 this.getByMajor(input);
                 this.displayResult();
