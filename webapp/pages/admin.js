@@ -19,6 +19,11 @@ export default () => {
       password: ''
   })
 
+  const [localUserAccountData , setLocalUserAccountData] = useState({
+      name: '',
+      userid: ''
+  }) 
+
   const handleResponse = (status, msg) => {
     if (status === 200) {
       console.log("handling response");
@@ -62,10 +67,12 @@ export default () => {
             console.log("Brought back result")
             console.log(userAccountData);
 
-            this.setState({userAccountData});
+            setLocalUserAccountData({name: userAccountData.name,
+                                userid: userAccountData.userid
+            });
             /* UserAccountData This consists of a name and userid*/
             
-            jsCookie.set("Active_User", this.state.email)
+            jsCookie.set("Active_User", localUserAccountData.userid)
             
             handleResponse(userAccountData.status, "Login Successful") /*Good request*/
             
