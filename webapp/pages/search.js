@@ -129,12 +129,6 @@ class Search extends Component {
         //}
     }
 
-    handleUpdate(evt) {
-        let change = {}
-        change[evt.target.name] = evt.target.value
-        this.setState({ [evt.target.name]: evt.target.value });
-    }
-
     render() {
         var result
         return (
@@ -159,48 +153,53 @@ class Search extends Component {
                     <div id="UMWIMG">
                         <img src="/umwEagle.png" style={{ maxWidth: "100px", maxHeight: "100px" }} />
                     </div>
-                    <h1 className="title"> Enter Your Information Below! </h1>
                     <div className="boxed" bg="medium">
-                        <Form>
-                            <Form.Row>
-                                <Form.Group as={Col} controlId="formGridEmail">
-                                    <Form.Label>First Name</Form.Label>
-                                    <Form.Control type="text" placeholder="First Name" name="first_name" value={this.state.first_name} onChange={this.handleUpdate.bind(this)}/>
-                                </Form.Group>
-                                <Form.Group as={Col} controlId="formGridPassword">
-                                    <Form.Label>Last Name</Form.Label>
-                                    <Form.Control type="text" placeholder="Last Name" name="last_name" value={this.state.last_name} onChange={this.handleUpdate.bind(this)}/>
-                                </Form.Group>
-                            </Form.Row>
-                            <Form.Row>
-                                <Form.Group as={Col} controlId="formGridEmail">
-                                    <Form.Label>Email</Form.Label>
-                                    <Form.Control type="email" placeholder="Email" name="email" value={this.state.email} onChange={this.handleUpdate.bind(this)}/>
-                                </Form.Group>
-                                <Form.Group as={Col} controlId="formGridPassword">
-                                    <Form.Label>Occupation</Form.Label>
-                                    <Form.Control type="text" placeholder="Occupation" name="occupation" value={this.state.occupation} onChange={this.handleUpdate.bind(this)}/>
-                                </Form.Group>
-                            </Form.Row>
-                            <Form.Row>
-                                <Form.Group as={Col} controlId="formGridEmail">
-                                    <Form.Label>Degree Obtained</Form.Label>
-                                    <Form.Control type="text" placeholder="Degree" name="degree" value={this.state.degree} onChange={this.handleUpdate.bind(this)}/>
-                                </Form.Group>
-                                <Form.Group as={Col} controlId="formGridPassword">
-                                    <Form.Label>Graduation Year</Form.Label>
-                                    <Form.Control type="number" min="1908" max="2050" placeholder="Year" name="grad_year" value={this.state.grad_year} onChange={this.handleUpdate.bind(this)}/>
-                                </Form.Group>
-                            </Form.Row>
-                            <Form.Group controlId="exampleForm.ControlTextarea1">
-                                <Form.Label>Bio </Form.Label>
-                                <Form.Control as="textarea" rows="3" placeholder="Bio" name="bio" value={this.state.bio} onChange={this.handleUpdate.bind(this)}/>
-                            </Form.Group>
-                            <Form.Group id="formGridCheckbox">
-                                <Form.Check className="checkbox" type="checkbox" label="Opt into department Newsletter" />
-                            </Form.Group>
-                            <Button variant="primary" onClick={this.handleOnSubmit.bind(this)}>Submit</Button>
-                        </Form>
+                        <form className="search-form">
+                            <div>
+                                <label for="inputField">Search:</label>
+                                <input type="text" id="inputField" />
+                            </div>
+                            <div>
+                                <label>Search Criteria</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="firstNameRadio" />
+                                <label for="firstNameRadio">First Name</label>
+                                <input type="radio" id="LastNameRadio" />
+                                <label for="lastNameRadio">Last Name</label>
+                                <input type="radio" id="majorRadio" />
+                                <label for="majorRadio">Major</label>
+                                <input type="radio" id="gradYearRadio" />
+                                <label for="gradYearRadio">Graduation Year</label>
+                                <input type="radio" id="occupationRadio" />
+                                <label for="occupationRadio">Occupation</label>
+                                <input type="radio" id="emailRadio" />
+                                <label for="emailRadio">E-mail</label>
+                            </div>
+                            <div>
+                                <label for="newsletterSelect">Opted in newsLetter?</label>
+                                <select id="newsletterSelect">
+                                    <option checked>Both</option>
+                                    <option>Yes</option>
+                                    <option>No</option>
+                                </select>
+                            </div>
+                        </form>
+                        <table className="table">
+                            <thead>
+                                <tr>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Major</th>
+                                    <th>Graduation Year</th>
+                                    <th>Occupation</th>
+                                    <th>Newsletter opt-in</th>
+                                    <th>E-mail</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
                     </div>
                 </main>
                 <style type="text/css" jsx> {`
@@ -244,12 +243,11 @@ class Search extends Component {
                         padding-left: 15px;
                         padding-bottom: 15px;
                     } 
-                    .form-control {
-        	            width: 50%;
+                    .table {
+                        font-size: 18px;
                     }
-                    #formGridCheckbox {
-        	            height: 50px;
-                	    width: 50px;
+                    .search-form {
+                        font-size: 15px;
                     }
                 `}
                 </style>
