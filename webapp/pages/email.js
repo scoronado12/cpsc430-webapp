@@ -5,7 +5,7 @@ import { Button, Navbar, Nav, NavDropdown, Form, FormControl } from 'react-boots
 import { Jumbotron, Container, Row, Col } from 'react-bootstrap'
 import axios from 'axios';
 
-
+/*
 function getEmailList(){
     axios.get('http://127.0.0.1:8000/email', {
         }).then((response) => {
@@ -15,7 +15,7 @@ function getEmailList(){
         }).catch((error) => {
             console.log("Error occured client side")
         });
-}
+}*/
 
 
 class Email extends Component {
@@ -26,10 +26,21 @@ class Email extends Component {
       submitting: false,
       info: {error: false, msg: null },
       subject: '',
+      emails: [],
       message: '',
     }
   }
   
+  async componentDidMount(){
+    await axios.get("http://localhost:8000/email").then((res) =>{
+      for(var x in res.data){
+        this.setState({ emails: [...this.state.emails, res.data[x].email]})
+      }
+      console.log(this.state.emails);
+    }).catch((err) =>{
+      console.log(err);
+    })
+  }
 
 
  handleResponse = (status, msg) => {
@@ -38,7 +49,7 @@ class Email extends Component {
         submitted: true,
         submitting: false,
         info: {error: false, msg: msg},
-        emails: '',
+        emails: [],
         subject: '',
         message: ''
       })
@@ -83,7 +94,6 @@ class Email extends Component {
             href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
             integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
             crossOrigin="anonymous"/> 
-            {getEmailList()}
         </div>
 
         
