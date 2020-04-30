@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import Layout from '../components/MyLayout';
+import jsCookie from "js-cookie";
 import Link from 'next/link';
 import { Button, Navbar, Nav, NavDropdown, Form, FormControl } from 'react-bootstrap';
 import { Jumbotron, Container, Row, Col } from 'react-bootstrap';
@@ -19,6 +20,7 @@ export default () => {
 
   const handleResponse = (status, msg) => {
     if (status === 200) {
+      console.log("handling response");
       setStatus({
         submitted: true,
         submitting: false,
@@ -57,7 +59,7 @@ export default () => {
         password: inputs.password
         }).then((response) => {
         console.log("Good query");
-        console.log(response.data);
+        console.log(response);
 
         handleResponse(response.status, "Login Successful") /*Good request*/
 
@@ -68,15 +70,7 @@ export default () => {
         handleResponse(error.status , "Error Occured"); /*bad request*/
 
     }); /*unhandled response rejection warning error may occur*/
-
-
-      }
-
-
-
-
-
-
+}
   return (
     <Layout>
     		<main>
@@ -130,7 +124,7 @@ export default () => {
 
 
                 </form>
-			</div>
+			     </div>
         </div> 
     </main>
     <style type="text/css" jsx> {`
@@ -164,11 +158,11 @@ export default () => {
           background-color: grey;
         }
         .boxed {
-       	  width: 50%;
-       	  display: flex;
-       	  justify-content: center;
-       	  align-items: center;
-       	  margin: 0 auto;
+          width: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin: 0 auto;
           border: 2px solid #03254c;
           background-color: rgba(211, 211, 211, 0.5);
           text-align: center;
@@ -180,20 +174,19 @@ export default () => {
           padding-bottom: 50px;
         } 
         Form-Control {
-        	width: 10%;
+          width: 10%;
         }
 
         #formGridCheckbox {
-        	height: 50px;
-        	width: 50px;
+          height: 50px;
+          width: 50px;
         }
         .forms {
-        	width: 50%;
-        	text-align: center;
-        	display: inline-block;
+          width: 50%;
+          text-align: center;
+          display: inline-block;
         }
-      `}
-      </style>
+      `}</style>
     </Layout>
   );
 }

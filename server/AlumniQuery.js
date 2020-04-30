@@ -1,8 +1,8 @@
 var express = require("express");
-var mysql = require("mysql");
+var bodyParser = require("body-parser");
 var app = express();
 var cors = require("cors");
-var bodyparser = require("body-parser");
+var mysql = require("mysql");
 
 // Initialize DB connection.
 var pool = mysql.createPool({ 
@@ -15,13 +15,12 @@ var pool = mysql.createPool({
 });
 
 app.use(cors());
-app.use(bodyparser.urlencoded({ extended: true}));
-app.use(bodyparser.json());
+app.use(bodyParser.urlencoded({ extended: true}));
+app.use(bodyParser.json());
 
 app.get("/email", (req, res) => {
-    const { field } = req.query;
 
-    pool.query('SELECT * FROM alumnis WHERE email = ?', [field], (err, result) => {
+    pool.query('SELECT email FROM alumnis WHERE newletter_opt_in = 1', (err, result) => {
       if (err) {
          console.log(err);
          return res.send(err);
@@ -32,10 +31,27 @@ app.get("/email", (req, res) => {
     });
 });
 
-app.get("/first_name", (req, res) => {
-    const { field } = req.query;
+app.get("/search", (req, res) => {
+    const { value } = req.query;
+    console.log(req.query);
+    console.log(value);
+    pool.query('SELECT * FROM alumnis WHERE first_name LIKE ?', [value], (err, result) => {
+      if (err) {
+         console.log(err);
+         return res.send(err);
+      } else {
+        console.log("rowcount= ", result.rowCount);
+         console.log(result);
+         return res.send(result);
+      }
+    });
+});
 
-    pool.query('SELECT * FROM alumnis WHERE first_name = ?', [field], (err, result) => {
+app.get("/first_name", (req, res) => {
+    const { value } = req.query;
+    console.log(req.query);
+    console.log(value);
+    pool.query('SELECT * FROM alumnis WHERE first_name LIKE ?', [value], (err, result) => {
       if (err) {
          console.log(err);
          return res.send(err);
@@ -148,6 +164,24 @@ app.post("/alumni_insert", (req, res) => {
         console.log("Timed out");
         console.log(e);
     }).end();
+});
+
+app.post("/admin_auth", (req,res) => {
+   const email = req.body.email;
+   const password = req.body.password;
+   console.log("logging in now!");
+   pool.query('SELECT name, userid FROM admins WHERE email = ? AND password = ?', [email, password], (err, result) =>{
+      console.log("pretest");
+      console.log(result.length)
+
+      if(err || result.length != 1){
+         console.log("Error");
+         return res.send();
+      } else {
+         console.log("success");
+         return res.send(result);
+      }
+   })
 });
 
 app.listen(8000, () => {

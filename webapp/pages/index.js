@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Layout from '../components/MyLayout'
 import { Button, Navbar, Nav, NavDropdown, Form, FormControl } from 'react-bootstrap'
 import { Jumbotron, Container, Row, Col } from 'react-bootstrap'
+
 const linkStyle = {
   
 };

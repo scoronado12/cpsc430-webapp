@@ -1,75 +1,96 @@
-import React, {useState} from "react"
+import React, {Component, useState} from "react"
 import Link from 'next/link'
 import Layout from '../components/MyLayout'
 import { Button, Navbar, Nav, NavDropdown, Form, FormControl } from 'react-bootstrap'
 import { Jumbotron, Container, Row, Col } from 'react-bootstrap'
+import axios from 'axios';
+
+/*
+function getEmailList(){
+    axios.get('http://127.0.0.1:8000/email', {
+        }).then((response) => {
+            console.log("Good query");
+            console.log(response);
+            console.log(response.data);
+        }).catch((error) => {
+            console.log("Error occured client side")
+        });
+}*/
 
 
+class Email extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      submitted: false,
+      submitting: false,
+      info: {error: false, msg: null },
+      subject: '',
+      emails: [],
+      message: '',
+    }
+  }
+  
+  async componentDidMount(){
+    await axios.get("http://localhost:8000/email").then((res) =>{
+      for(var x in res.data){
+        this.setState({ emails: [...this.state.emails, res.data[x].email]})
+      }
+      console.log(this.state.emails);
+    }).catch((err) =>{
+      console.log(err);
+    })
+  }
 
-export default () => {
-  const [status, setStatus] = useState({
-    submitted: false,
-    submitting: false,
-    info: { error: false, msg: null }
-  })
 
-  const [inputs, setInputs] = useState({
-    subject: '',
-    message: ''
-  })
-
-  const handleResponse = (status, msg) => {
+ handleResponse = (status, msg) => {
     if (status === 200) {
-      setStatus({
+      this.setState({
         submitted: true,
         submitting: false,
-        info: { error: false, msg: msg }
-      })
-      setInputs({
+        info: {error: false, msg: msg},
+        emails: [],
         subject: '',
         message: ''
       })
     } else {
-      setStatus({
-        info: { error: true, msg: msg }
-      })
+      this.setState({info: {error: true, msg: msg }})
     }
   }
 
-  const handleOnChange = e => {
-    e.persist()
-    setInputs(prev => ({
-      ...prev,
-      [e.target.id]: e.target.value
-    }))
-    setStatus({
-      submitted: false,
-      submitting: false,
-      info: { error: false, msg: null }
-    })
+  handleOnChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value })
   }
 
-  const handleOnSubmit = async e => {
+  handleOnSubmit = async e => {
     e.preventDefault()
-    setStatus(prevStatus => ({ ...prevStatus, submitting: true }))
+    this.setState({ submitting: true });
+    var inputs = ({emails: this.state.emails,
+                message: this.state.message, 
+                subject: this.state.subject })
     const res = await fetch('/api/sendgrid-server', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(inputs)
+      /*body: {
+        message: this.state.message,
+        subject: this.state.subject
+      }*/
     })
-    const text = await res.text()
-    handleResponse(res.status, text)
+    const text = await res.text();
+    alert(text);
+    this.handleResponse(res.status, text);
   }
 
 
-
-      return (
-     <Layout>
+  render(){
+    return (
+    <Layout>
       <main>
         <div> 
-            <link rel="stylesheet"
+          <link rel="stylesheet"
             href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
             integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
             crossOrigin="anonymous"/> 
@@ -91,38 +112,25 @@ export default () => {
         <h1 className="title">UMW</h1>
         <h1 className="titletwo"> Earth Science Alumni Database </h1>
         <div className="floating-box">
-            <h2>Send an email to all registered users</h2>
+          <h2>Send an email to all registered users</h2>
 
-        <form onSubmit={handleOnSubmit}>
-            <label htmlFor="subject">subject</label>
-            <input
-              id="subject"
-              type="subject"
-              onChange={handleOnChange}
-              required
-              value={inputs.subject}
-             />
-
-            <label htmlFor="message">Message</label>
-            <textarea
-              id="message"
-              onChange={handleOnChange}
-              required
-              value={inputs.message}
-            />
-            <button type="submit" disabled={status.submitting}>
-              {!status.submitting
-                ? !status.submitted
-                  ? 'Submit'
-                  : 'Submitted'
-                : 'Submitting...'}
-            </button>
-        </form>
-          {status.info.error && (
-            <div className="error">Error: {status.info.msg}</div>
+          <Form>
+            <Form.Group controlId="subject_line" > 
+              <Form.Label>Subject Line </Form.Label>
+              <Form.Control as="textarea" rows="1" placeholder="Subject" size="sm" name="subject" value={this.state.subject} onChange={this.handleOnChange.bind(this)} />
+            </Form.Group>
+              
+            <Form.Group controlId="message_box"> 
+              <Form.Label>Message</Form.Label>
+              <Form.Control as="textarea" rows="3" placeholder="Message" name="message" value={this.state.message} onChange={this.handleOnChange.bind(this)} />
+            </Form.Group>
+            <Button onClick={this.handleOnSubmit.bind(this)}>Send</Button>
+          </Form>
+          {this.state.info.error && (
+              <div className="error">{"Error:" + this.state.info.msg}</div>
           )}
-          {!status.info.error && status.info.msg && (
-            <div className="success">{status.info.msg}</div>
+          {!this.state.info.error && this.state.info.msg && (
+            <div className="success">{this.state.info.msg}</div>
           )}
 
         </div>
@@ -237,5 +245,7 @@ export default () => {
     `}
       </style>
     </Layout>
-      )
+      )}
 }
+
+export default Email;
