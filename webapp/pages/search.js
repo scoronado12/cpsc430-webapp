@@ -203,6 +203,7 @@ class Search extends Component {
                     <div id="UMWIMG">
                         <img src="/umwEagle.png" style={{ maxWidth: "100px", maxHeight: "100px" }} />
                     </div>
+                    <h1 className="title"> Search The Database! </h1>
                     <div className="boxed" bg="medium">
                         <form className="search-form">
                             <div>
