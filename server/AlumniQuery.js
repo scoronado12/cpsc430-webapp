@@ -1,4 +1,3 @@
-var argon2 = require("argon2");
 var express = require("express");
 var bodyParser = require("body-parser");
 var app = express();
@@ -20,9 +19,8 @@ app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
 
 app.get("/email", (req, res) => {
-    const { field } = req.query;
 
-    pool.query('SELECT * FROM alumnis WHERE email = ?', [field], (err, result) => {
+    pool.query('SELECT email FROM alumnis WHERE newletter_opt_in = 1', (err, result) => {
       if (err) {
          console.log(err);
          return res.send(err);
@@ -175,9 +173,7 @@ app.post("/admin_auth", (req,res) => {
    pool.query('SELECT name, userid FROM admins WHERE email = ? AND password = ?', [email, password], (err, result) =>{
       console.log("pretest");
       console.log(result.length)
-      for(x in result){
-         console.log(x)
-      }
+
       if(err || result.length != 1){
          console.log("Error");
          return res.send();
