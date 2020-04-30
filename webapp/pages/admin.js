@@ -119,8 +119,9 @@ export default () => {
                         required
                         value={inputs.email}
                     />
+                    <p></p>
                     <label htmlFor="password">Password</label>
-
+                    <p></p>
                     <input
                         id="password"
                         type="password"
@@ -128,8 +129,8 @@ export default () => {
                         required
                         value={inputs.password}
                     />
-
-                    <button type="submit" disabled={status.submitting}>
+                    <p></p>
+                    <button id="submitButon" type="submit" disabled={status.submitting}>
                                   {!status.submitting
                                     ? !status.submitted
                                       ? 'Log In'
@@ -144,6 +145,12 @@ export default () => {
     </main>
     <style type="text/css" jsx> {`
 
+        #submitButon{
+          background-color: #03254c; 
+          color: white;
+          border-radius: 12px;
+          width: 100px;
+        }
         .title {
           text-align: center;
           color: #03254c;
@@ -197,9 +204,7 @@ export default () => {
           width: 50px;
         }
         .forms {
-          width: 50%;
-          text-align: center;
-          display: inline-block;
+          width: 50%;       
         }
       `}</style>
     </Layout>
