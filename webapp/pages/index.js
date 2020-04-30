@@ -8,16 +8,6 @@ const linkStyle = {
   
 };
 
-/* Testing server.*/
-function testCall() {
-    axios.get('http://127.0.0.1:8000/graduation_year', {
-        params: {
-            field: "2000",
-        },
-    }).then((response) => {
-        console.log(response.data);
-    });
-}
 
 export default function Index() {
   return (
@@ -28,7 +18,6 @@ export default function Index() {
             href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
             integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
             crossOrigin="anonymous"/>
-            {testCall()}
         </div>
     
         
