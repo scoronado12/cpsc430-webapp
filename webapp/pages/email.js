@@ -112,7 +112,7 @@ class Email extends Component {
               <div className="error">{alert("Error:" + this.state.info.msg)}</div>
           )}
           {!this.state.info.error && this.state.info.msg && (
-            <div className="success">{alert(this.state.info.msg)}</div>
+            <div className="success">{this.state.info.msg}</div>
           )}
 
         </div>
