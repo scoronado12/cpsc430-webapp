@@ -2,8 +2,12 @@ import Layout from '../components/MyLayout'
 import Link from 'next/link'
 import { Button, Navbar, Nav, NavDropdown, Form, FormControl } from 'react-bootstrap'
 import { Jumbotron, Container, Row, Col } from 'react-bootstrap'
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { Component } from 'react'
+import axios from 'axios'
+import {Helmet} from 'react-helmet'
+
+const title = "UMW Enviromental Science Database - Signup Form"
+
 class Alumni extends Component {
 
   //export default function Alumni() {
@@ -65,6 +69,7 @@ class Alumni extends Component {
     return (
       <Layout>
         <main>
+            <Helmet><title>{title}</title></Helmet>
           <div>
             <link rel="stylesheet"
               href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
