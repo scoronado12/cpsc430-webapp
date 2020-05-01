@@ -5,6 +5,7 @@ import { Jumbotron, Container, Row, Col } from 'react-bootstrap'
 import React, { Component } from 'react'
 import axios from 'axios'
 import {Helmet} from 'react-helmet'
+import Router from 'next/router'
 
 const title = "UMW Enviromental Science Database - Signup Form"
 
@@ -41,7 +42,8 @@ class Alumni extends Component {
     }).then((response) => {
         console.log("Good query");
         console.log(response.data);
-
+        alert("Sucessfully Recieved Your Information");
+        Router.replace("/");
         //handleResponse(response.status, "Insert Sucessful") /*Good request*/
 
     }).catch((error) => {
