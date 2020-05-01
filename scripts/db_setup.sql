@@ -48,4 +48,4 @@ CREATE TABLE IF NOT EXISTS admins(
 
 
 INSERT INTO admins VALUES
-    (2000, "Main Admin", "main@email.com", "password");
+    (2000, "Main Admin", "main@email.com", "$argon2i$v=19$m=4096,t=3,p=1$EkdoBtP75DCgB31j+yASpQ$ZwBt/dBP922rjau8su246bsLLjoFiJ1A39TtV6gDeNo");
