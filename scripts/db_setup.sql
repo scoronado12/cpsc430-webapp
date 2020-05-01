@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS admins(
     userid      INT AUTO_INCREMENT PRIMARY KEY,
     name        VARCHAR(25) NOT NULL,
     email       VARCHAR(25) NOT NULL,
-    password    VARCHAR(25) NOT NULL
+    password    VARCHAR(500) NOT NULL
 );
 
 

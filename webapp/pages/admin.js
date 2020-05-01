@@ -1,6 +1,7 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import Layout from '../components/MyLayout';
-import jsCookie from "js-cookie";
+import Router from "next/router";
+import Cookies from "js-cookie";
 import Link from 'next/link';
 import { Button, Navbar, Nav, NavDropdown, Form, FormControl } from 'react-bootstrap';
 import { Jumbotron, Container, Row, Col } from 'react-bootstrap';
@@ -16,6 +17,21 @@ export default () => {
   const [inputs, setInputs] = useState({
       email: '',
       password: ''
+  })
+
+  const [localUserId, setLocalUserId ] = useState('asdf');
+  const [localUserName, setLocalUserName ] = useState('');
+  /*const [localUserAccountData , setLocalUserAccountData] = useState({
+      name: '',
+      userid: ''
+  })*/ 
+  useEffect(() => {
+    function handleUserIdChange(name){
+      setLocalUserId(name);
+    }
+    function handleUserNameChange(name){
+      setLocalUserName(name);
+    }
   })
 
   const handleResponse = (status, msg) => {
@@ -54,20 +70,20 @@ export default () => {
     e.preventDefault()
     setStatus(prevStatus => ({ ...prevStatus, submitting: true }))
     
-    await axios.post("http://127.0.0.1:8000/admin_auth", {
+    await axios.post("http://127.0.0.1:8000/admin_auth2", {
         email: inputs.email,
         password: inputs.password
-        }).then((response) => {
-        console.log("Good query");
-        console.log(response);
-
-        handleResponse(response.status, "Login Successful") /*Good request*/
-
+        }).then((userAccountData) => {
+            Cookies.set('Active_User', userAccountData.data.userid.toString() , {expires : 3});
+            handleResponse(userAccountData.status, "Login Successful") /*Good request*/
+            var cook = Cookies.get('Active_User');
+            Router.replace("/search");
+        //create session 
     }).catch((error) => {
-        console.log("no good query");
+        console.log("Login Failed");
         console.log(error.data);
-        console.log("Error occured", error);
-        handleResponse(error.status , "Error Occured"); /*bad request*/
+        handleResponse(error.status , "Incorrect Username or Password"); /*bad request*/
+        alert("Incorrect Username or Password - Please Try Again");
 
     }); /*unhandled response rejection warning error may occur*/
 }
@@ -104,8 +120,9 @@ export default () => {
                         required
                         value={inputs.email}
                     />
+                    <p></p>
                     <label htmlFor="password">Password</label>
-
+                    <p></p>
                     <input
                         id="password"
                         type="password"
@@ -113,8 +130,8 @@ export default () => {
                         required
                         value={inputs.password}
                     />
-
-                    <button type="submit" disabled={status.submitting}>
+                    <p></p>
+                    <button id="submitButon" type="submit" disabled={status.submitting}>
                                   {!status.submitting
                                     ? !status.submitted
                                       ? 'Log In'
@@ -129,6 +146,12 @@ export default () => {
     </main>
     <style type="text/css" jsx> {`
 
+        #submitButon{
+          background-color: #03254c; 
+          color: white;
+          border-radius: 12px;
+          width: 100px;
+        }
         .title {
           text-align: center;
           color: #03254c;
@@ -182,9 +205,7 @@ export default () => {
           width: 50px;
         }
         .forms {
-          width: 50%;
-          text-align: center;
-          display: inline-block;
+          width: 50%;       
         }
       `}</style>
     </Layout>

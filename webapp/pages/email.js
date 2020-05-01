@@ -4,18 +4,8 @@ import Layout from '../components/MyLayout'
 import { Button, Navbar, Nav, NavDropdown, Form, FormControl } from 'react-bootstrap'
 import { Jumbotron, Container, Row, Col } from 'react-bootstrap'
 import axios from 'axios';
-
-/*
-function getEmailList(){
-    axios.get('http://127.0.0.1:8000/email', {
-        }).then((response) => {
-            console.log("Good query");
-            console.log(response);
-            console.log(response.data);
-        }).catch((error) => {
-            console.log("Error occured client side")
-        });
-}*/
+import jsCookie from "js-cookie";
+import Router from 'next/router';
 
 
 class Email extends Component {
@@ -32,11 +22,14 @@ class Email extends Component {
   }
   
   async componentDidMount(){
+    if(jsCookie.get("Active_User") == undefined){
+      console.log("You're not logged in!");
+      Router.replace("/admin");
+  }
     await axios.get("http://localhost:8000/email").then((res) =>{
       for(var x in res.data){
         this.setState({ emails: [...this.state.emails, res.data[x].email]})
       }
-      console.log(this.state.emails);
     }).catch((err) =>{
       console.log(err);
     })
@@ -85,6 +78,14 @@ class Email extends Component {
   }
 
 
+   logOut(){
+       console.log("Logging Out")
+       jsCookie.remove("Active_User");
+   }
+
+
+
+
   render(){
     return (
     <Layout>
@@ -98,12 +99,13 @@ class Email extends Component {
 
         
         <Navbar bg="medium" expand="lg">
-          <Navbar.Brand href="#home">EESAD</Navbar.Brand>
+          <Navbar.Brand>EESAD</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/about">About</Nav.Link>  
+            <Nav.Link href="/search">Search</Nav.Link>
+            <Nav.Link href="/" onSelect={this.logOut}>Log Out</Nav.Link>
+
           </Nav>
         </Navbar.Collapse>
         </Navbar>

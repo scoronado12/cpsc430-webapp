@@ -4,6 +4,8 @@ import { Button, Navbar, Nav, NavDropdown, Form, FormControl } from 'react-boots
 import { Jumbotron, Container, Row, Col } from 'react-bootstrap'
 import React, { Component } from 'react';
 import axios from 'axios';
+import jsCookie from "js-cookie";
+import Router from 'next/router';
 
 const HOST = "http://127.0.0.1:8000";
 
@@ -12,10 +14,18 @@ class Search extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            results: []
+            results: [],
         };
+
     }
-  
+    
+    componentDidMount(){
+        if(jsCookie.get("Active_User") == undefined){
+            console.log("You're not logged in!");
+            Router.replace("/admin");
+        }
+    }
+      
     async getByEmail(email) {
         await axios.get(HOST + "/getUsersByEmails", {
             params: {
@@ -94,9 +104,16 @@ class Search extends Component {
         });
     }
 
+    logOut(){
+        console.log("Logging Out")
+        jsCookie.remove("Active_User");
+    }
+
+
     /*TODO bolden selected radio button column*/
     displayResult(response) {
         this.setState({results: response.data});
+        var mailto = "mailto:";
         this.resultData = this.state.results.map((object, key) => {
             var box = (object.newletter_opt_in == 1 ? [<input type="checkbox" checked disabled />] : [<input type="checkbox" disabled />]);
             switch(document.getElementById("newsletterSelect").value) {
@@ -109,7 +126,7 @@ class Search extends Component {
                             <td>{object.graduation_year}</td>
                             <td>{object.occupation}</td>
                             <td>{box}</td>
-                            <td>{object.email}</td>
+                            <td><a href={mailto + object.email}>{object.email}</a></td>
                         </tr>
                     );
                     break;
@@ -123,7 +140,7 @@ class Search extends Component {
                                 <td>{object.graduation_year}</td>
                                 <td>{object.occupation}</td>
                                 <td>{box}</td>
-                                <td>{object.email}</td>
+                                <td><a href={mailto + object.email}>{object.email}</a></td>
                             </tr>
                         );    
                     }
@@ -138,7 +155,7 @@ class Search extends Component {
                                 <td>{object.graduation_year}</td>
                                 <td>{object.occupation}</td>
                                 <td>{box}</td>
-                                <td>{object.email}</td>
+                                <td><a href={mailto + object.email}>{object.email}</a></td>
                             </tr>
                         );    
                     }
@@ -181,19 +198,19 @@ class Search extends Component {
     }
 
     render() {
-        return (
+            return (
             <Layout>
                 <main>
                     <div>
                         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossOrigin="anonymous" />
                     </div>
                     <Navbar bg="medium" expand="lg">
-                        <Navbar.Brand href="#home">EESAD</Navbar.Brand>
+                        <Navbar.Brand>EESAD</Navbar.Brand>
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />
                         <Navbar.Collapse id="basic-navbar-nav">
                             <Nav className="mr-auto">
-                                <Nav.Link href="/">Home</Nav.Link>
-                                <Nav.Link href="/about">About</Nav.Link>
+                                <Nav.Link href="/email">Email</Nav.Link>
+                                <Nav.Link href="/" onSelect={this.logOut}>Log Out</Nav.Link>
                             </Nav>
                         </Navbar.Collapse>
                     </Navbar>
@@ -203,6 +220,7 @@ class Search extends Component {
                     <div id="UMWIMG">
                         <img src="/umwEagle.png" style={{ maxWidth: "100px", maxHeight: "100px" }} />
                     </div>
+                    <h1 className="title"> Search The Database! </h1>
                     <div className="boxed" bg="medium">
                         <form className="search-form">
                             <div>
