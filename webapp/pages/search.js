@@ -5,18 +5,28 @@ import { Jumbotron, Container, Row, Col } from 'react-bootstrap'
 import React, { Component } from 'react';
 import axios from 'axios';
 import jsCookie from "js-cookie";
-
+import Router from 'next/router';
 
 const HOST = "http://127.0.0.1:8000";
+
 class Search extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            results: []
+            results: [],
         };
+
     }
-  
+
+    componentWillMount(){
+        if(jsCookie.get("Active_User" == undefined)){
+            console.log("You're not logged in!");
+            Router.replace("/admin");
+        }
+    }
+
+      
     async getByEmail(email) {
         await axios.get(HOST + "/getUsersByEmails", {
             params: {
@@ -189,7 +199,7 @@ class Search extends Component {
     }
 
     render() {
-        return (
+            return (
             <Layout>
                 <main>
                     <div>

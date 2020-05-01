@@ -5,6 +5,24 @@ import { Button, Navbar, Nav, NavDropdown, Form, FormControl } from 'react-boots
 import { Jumbotron, Container, Row, Col } from 'react-bootstrap'
 import axios from 'axios';
 import jsCookie from "js-cookie";
+import Router from 'next/router';
+
+
+
+
+
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
+
+
+
+
 
 
 class Email extends Component {
@@ -19,7 +37,16 @@ class Email extends Component {
       message: '',
     }
   }
-  
+
+  async componentWillMount(){
+      if(jsCookie.get("Active_User" == undefined)){
+          console.log("You're not logged in!");
+          await Router.replace("/admin");
+      }
+  }
+
+
+
   async componentDidMount(){
     await axios.get("http://localhost:8000/email").then((res) =>{
       for(var x in res.data){
@@ -82,6 +109,7 @@ class Email extends Component {
 
 
   render(){
+      sleep(2000);
     return (
     <Layout>
       <main>
