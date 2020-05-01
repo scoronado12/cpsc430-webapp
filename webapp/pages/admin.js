@@ -70,23 +70,13 @@ export default () => {
     e.preventDefault()
     setStatus(prevStatus => ({ ...prevStatus, submitting: true }))
     
-    await axios.post("http://127.0.0.1:8000/admin_auth", {
+    await axios.post("http://127.0.0.1:8000/admin_auth2", {
         email: inputs.email,
         password: inputs.password
         }).then((userAccountData) => {
-            //console.log("Brought back result")
-            //console.log(userAccountData);            
-            /*setLocalUserAccountData({name: userAccountData.data[0].name,
-                                userid: userAccountData.data[0].userid
-            });*/
-            /* UserAccountData This consists of a name and userid*/
-            console.log(userAccountData.data[0].userid)
-            Cookies.set('Active_User', userAccountData.data[0].userid.toString() , {expires : 3});
-            console.log("Get cookie");
+            Cookies.set('Active_User', userAccountData.data.userid.toString() , {expires : 3});
             handleResponse(userAccountData.status, "Login Successful") /*Good request*/
             var cook = Cookies.get('Active_User');
-            console.log("after handling");
-            console.log(cook)
             Router.replace("/search");
         //create session 
     }).catch((error) => {
