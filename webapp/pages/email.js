@@ -8,23 +8,6 @@ import jsCookie from "js-cookie";
 import Router from 'next/router';
 
 
-
-
-
-function sleep(milliseconds) {
-  var start = new Date().getTime();
-  for (var i = 0; i < 1e7; i++) {
-    if ((new Date().getTime() - start) > milliseconds){
-      break;
-    }
-  }
-}
-
-
-
-
-
-
 class Email extends Component {
   constructor(props){
     super(props);
@@ -37,17 +20,12 @@ class Email extends Component {
       message: '',
     }
   }
-
-  async componentWillMount(){
-      if(jsCookie.get("Active_User" == undefined)){
-          console.log("You're not logged in!");
-          await Router.replace("/admin");
-      }
-  }
-
-
-
+  
   async componentDidMount(){
+    if(jsCookie.get("Active_User") == undefined){
+      console.log("You're not logged in!");
+      Router.replace("/admin");
+  }
     await axios.get("http://localhost:8000/email").then((res) =>{
       for(var x in res.data){
         this.setState({ emails: [...this.state.emails, res.data[x].email]})
@@ -109,7 +87,6 @@ class Email extends Component {
 
 
   render(){
-      sleep(2000);
     return (
     <Layout>
       <main>

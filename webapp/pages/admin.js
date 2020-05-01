@@ -1,7 +1,7 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import Layout from '../components/MyLayout';
 import Router from "next/router";
-import jsCookie from "js-cookie";
+import Cookies from "js-cookie";
 import Link from 'next/link';
 import { Button, Navbar, Nav, NavDropdown, Form, FormControl } from 'react-bootstrap';
 import { Jumbotron, Container, Row, Col } from 'react-bootstrap';
@@ -19,10 +19,20 @@ export default () => {
       password: ''
   })
 
-  const [localUserAccountData , setLocalUserAccountData] = useState({
+  const [localUserId, setLocalUserId ] = useState('asdf');
+  const [localUserName, setLocalUserName ] = useState('');
+  /*const [localUserAccountData , setLocalUserAccountData] = useState({
       name: '',
       userid: ''
-  }) 
+  })*/ 
+  useEffect(() => {
+    function handleUserIdChange(name){
+      setLocalUserId(name);
+    }
+    function handleUserNameChange(name){
+      setLocalUserName(name);
+    }
+  })
 
   const handleResponse = (status, msg) => {
     if (status === 200) {
@@ -64,18 +74,19 @@ export default () => {
         email: inputs.email,
         password: inputs.password
         }).then((userAccountData) => {
-            console.log("Brought back result")
-            console.log(userAccountData);
-
-            setLocalUserAccountData({name: userAccountData.name,
-                                userid: userAccountData.userid
-            });
+            //console.log("Brought back result")
+            //console.log(userAccountData);            
+            /*setLocalUserAccountData({name: userAccountData.data[0].name,
+                                userid: userAccountData.data[0].userid
+            });*/
             /* UserAccountData This consists of a name and userid*/
-            
-            jsCookie.set("Active_User", localUserAccountData.userid , {expires : 3});
-            
+            console.log(userAccountData.data[0].userid)
+            Cookies.set('Active_User', userAccountData.data[0].userid.toString() , {expires : 3});
+            console.log("Get cookie");
             handleResponse(userAccountData.status, "Login Successful") /*Good request*/
-            
+            var cook = Cookies.get('Active_User');
+            console.log("after handling");
+            console.log(cook)
             Router.replace("/search");
         //create session 
     }).catch((error) => {

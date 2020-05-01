@@ -18,14 +18,13 @@ class Search extends Component {
         };
 
     }
-
-    componentWillMount(){
-        if(jsCookie.get("Active_User" == undefined)){
+    
+    componentDidMount(){
+        if(jsCookie.get("Active_User") == undefined){
             console.log("You're not logged in!");
             Router.replace("/admin");
         }
     }
-
       
     async getByEmail(email) {
         await axios.get(HOST + "/getUsersByEmails", {
