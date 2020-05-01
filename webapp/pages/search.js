@@ -6,9 +6,10 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import jsCookie from "js-cookie";
 import Router from 'next/router';
+import {Helmet} from 'react-helmet';
 
 const HOST = "http://127.0.0.1:8000";
-
+const title = "UMW Enviromental Science Database - Search"
 class Search extends Component {
 
     constructor(props) {
@@ -196,11 +197,11 @@ class Search extends Component {
                 break;
         }
     }
-
     render() {
             return (
             <Layout>
                 <main>
+                    <Helmet><title>{title}</title></Helmet>
                     <div>
                         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossOrigin="anonymous" />
                     </div>
