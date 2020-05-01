@@ -104,6 +104,7 @@ class Search extends Component {
     /*TODO bolden selected radio button column*/
     displayResult(response) {
         this.setState({results: response.data});
+        var mailto = "mailto:";
         this.resultData = this.state.results.map((object, key) => {
             var box = (object.newletter_opt_in == 1 ? [<input type="checkbox" checked disabled />] : [<input type="checkbox" disabled />]);
             switch(document.getElementById("newsletterSelect").value) {
@@ -116,7 +117,7 @@ class Search extends Component {
                             <td>{object.graduation_year}</td>
                             <td>{object.occupation}</td>
                             <td>{box}</td>
-                            <td>{object.email}</td>
+                            <td><a href={mailto + object.email}>{object.email}</a></td>
                         </tr>
                     );
                     break;
@@ -130,7 +131,7 @@ class Search extends Component {
                                 <td>{object.graduation_year}</td>
                                 <td>{object.occupation}</td>
                                 <td>{box}</td>
-                                <td>{object.email}</td>
+                                <td><a href={mailto + object.email}>{object.email}</a></td>
                             </tr>
                         );    
                     }
@@ -145,7 +146,7 @@ class Search extends Component {
                                 <td>{object.graduation_year}</td>
                                 <td>{object.occupation}</td>
                                 <td>{box}</td>
-                                <td>{object.email}</td>
+                                <td><a href={mailto + object.email}>{object.email}</a></td>
                             </tr>
                         );    
                     }
@@ -185,17 +186,6 @@ class Search extends Component {
             default:
                 break;
         }
-    }
-
-    handleSendMassEmail(evt) {
-        var emailList = [];
-        for (var row in this.resultData) {
-            if (this.resultData[row].props.children[5].props.children[0].props.checked) {
-               emailList.push(this.resultData[row].props.children[6].props.children); 
-            }
-        }
-        //TODO: send the list to sendgrid mass email page.
-        console.log(emailList);
     }
 
     render() {
@@ -259,8 +249,6 @@ class Search extends Component {
                                 </select>
                             </div>
                                 <Button onClick={this.handleOnSubmit.bind(this)}>Search</Button>
-                                &nbsp;&nbsp;&nbsp;&nbsp;
-                                <Button onClick={this.handleSendMassEmail.bind(this)}>Send E-mails</Button>
                         </form>
                         <table className="table">
                             <thead>
