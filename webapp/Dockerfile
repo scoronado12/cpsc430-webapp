@@ -14,4 +14,6 @@ RUN npm install --save react react-dom next react-bootstrap bootstrap express jq
 
 RUN npm install --save isomorphic-fetch js-cookie axios
 
+RUN npm install --save react-helmet
+
 RUN npm install --save @sendgrid/mail
