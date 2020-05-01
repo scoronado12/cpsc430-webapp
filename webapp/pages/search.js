@@ -4,9 +4,10 @@ import { Button, Navbar, Nav, NavDropdown, Form, FormControl } from 'react-boots
 import { Jumbotron, Container, Row, Col } from 'react-bootstrap'
 import React, { Component } from 'react';
 import axios from 'axios';
+import jsCookie from "js-cookie";
+
 
 const HOST = "http://127.0.0.1:8000";
-
 class Search extends Component {
 
     constructor(props) {
@@ -93,6 +94,13 @@ class Search extends Component {
             this.setState({results: response.data});
         });
     }
+
+    logOut(){
+        console.log("Logging Out")
+        jsCookie.remove("Active_User");
+
+    }
+
 
     /*TODO bolden selected radio button column*/
     displayResult(response) {
@@ -192,8 +200,8 @@ class Search extends Component {
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />
                         <Navbar.Collapse id="basic-navbar-nav">
                             <Nav className="mr-auto">
-                                <Nav.Link href="/">Home</Nav.Link>
                                 <Nav.Link href="/about">About</Nav.Link>
+                                <Nav.Link href="/" onSelect={this.logOut}>Log Out</Nav.Link>
                             </Nav>
                         </Navbar.Collapse>
                     </Navbar>

@@ -72,7 +72,7 @@ export default () => {
             });
             /* UserAccountData This consists of a name and userid*/
             
-            jsCookie.set("Active_User", localUserAccountData.userid)
+            jsCookie.set("Active_User", localUserAccountData.userid , {expires : 3});
             
             handleResponse(userAccountData.status, "Login Successful") /*Good request*/
             
