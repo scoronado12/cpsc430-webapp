@@ -187,6 +187,17 @@ class Search extends Component {
         }
     }
 
+    handleSendMassEmail(evt) {
+        var emailList = [];
+        for (var row in this.resultData) {
+            if (this.resultData[row].props.children[5].props.children[0].props.checked) {
+               emailList.push(this.resultData[row].props.children[6].props.children); 
+            }
+        }
+        //TODO: send the list to sendgrid mass email page.
+        console.log(emailList);
+    }
+
     render() {
         return (
             <Layout>
@@ -248,6 +259,8 @@ class Search extends Component {
                                 </select>
                             </div>
                                 <Button onClick={this.handleOnSubmit.bind(this)}>Search</Button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <Button onClick={this.handleSendMassEmail.bind(this)}>Send E-mails</Button>
                         </form>
                         <table className="table">
                             <thead>
