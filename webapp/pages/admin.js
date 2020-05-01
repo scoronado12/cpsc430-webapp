@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Button, Navbar, Nav, NavDropdown, Form, FormControl } from 'react-bootstrap';
 import { Jumbotron, Container, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
+import {Helmet} from 'react-helmet'
 
 export default () => {
   const [status, setStatus] = useState({
@@ -87,9 +88,11 @@ export default () => {
 
     }); /*unhandled response rejection warning error may occur*/
 }
+  var title = "UMW Enviromental Science Database - Login";
   return (
     <Layout>
-    		<main>
+    <main>
+        <Helmet><title>{title}</title></Helmet>
         <div> 
             <link rel="stylesheet"
             href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
