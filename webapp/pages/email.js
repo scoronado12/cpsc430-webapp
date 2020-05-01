@@ -6,7 +6,8 @@ import { Jumbotron, Container, Row, Col } from 'react-bootstrap'
 import axios from 'axios';
 import jsCookie from "js-cookie";
 import Router from 'next/router';
-
+import {Helmet} from 'react-helmet';
+const title = "UMW Enviromental Science Database - Email";
 
 class Email extends Component {
   constructor(props){
@@ -89,6 +90,7 @@ class Email extends Component {
   render(){
     return (
     <Layout>
+    <Helmet><title>{title}</title></Helmet>
       <main>
         <div> 
           <link rel="stylesheet"

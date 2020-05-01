@@ -2,18 +2,22 @@ import Layout from '../components/MyLayout'
 import Link from 'next/link'
 import { Button, Navbar, Nav, NavDropdown, Form, FormControl } from 'react-bootstrap'
 import { Jumbotron, Container, Row, Col } from 'react-bootstrap'
+import {Helmet} from 'react-helmet'
 
 export default function About() {
+  var title = "UMW Enviromental Science Database - About";
   return (
     <Layout>
+
     <main>
+        <Helmet><title>{title}</title></Helmet>
         <div> 
             <link rel="stylesheet"
             href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
             integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
             crossorigin="anonymous"/> 
         </div>
-       		<Navbar bg="medium" expand="lg">
+            <Navbar bg="medium" expand="lg">
           	<Navbar.Brand href="#home">EESAD</Navbar.Brand>
           	<Navbar.Toggle aria-controls="basic-navbar-nav" />
           	<Navbar.Collapse id="basic-navbar-nav">
