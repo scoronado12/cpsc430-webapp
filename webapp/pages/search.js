@@ -98,7 +98,6 @@ class Search extends Component {
     logOut(){
         console.log("Logging Out")
         jsCookie.remove("Active_User");
-
     }
 
 
@@ -196,11 +195,11 @@ class Search extends Component {
                         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossOrigin="anonymous" />
                     </div>
                     <Navbar bg="medium" expand="lg">
-                        <Navbar.Brand href="#home">EESAD</Navbar.Brand>
+                        <Navbar.Brand>EESAD</Navbar.Brand>
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />
                         <Navbar.Collapse id="basic-navbar-nav">
                             <Nav className="mr-auto">
-                                <Nav.Link href="/about">About</Nav.Link>
+                                <Nav.Link href="/email">Email</Nav.Link>
                                 <Nav.Link href="/" onSelect={this.logOut}>Log Out</Nav.Link>
                             </Nav>
                         </Navbar.Collapse>
