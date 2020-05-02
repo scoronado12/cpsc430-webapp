@@ -1,5 +1,16 @@
 # CPSC 430 Enviromental Science Database Web App 
-**Do not forget that you should not commit in master!**
+
+# Repository Online Link
+
+[cpsc430-webapp on GitHub](https://github.com/scoronado12/cpsc430-webapp)
+
+# Acknowledgements
+
+- Stefano C. Coronado
+- Eriq Ibar
+- Daniel Mulyono
+- Michael Young
+- Ben Jameson
 
 # Where the Code lives
 
@@ -23,6 +34,10 @@ There are three containers involved with this project.
 3. `mariadb` which serves as the container holding a database. Data placed in here throughout the run is currently not persistent
 
 These relationships are established in `docker-compose.yml`
+
+## API Keys
+
+After oversight, I have revoked the sendgrid API key to prevent any emails going out under false pretenses. If you are interested in keeping that running, contact Stefano.
 
 ## Useful Commands
 
